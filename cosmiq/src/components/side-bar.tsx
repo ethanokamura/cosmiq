@@ -106,7 +106,7 @@ export default function SideBar({ dir, currentFile, onSelectFile }: Props) {
       });
       setIsCreatingFile(false);
       setError("");
-      onSelectFile(`${title}.md`);
+      onSelectFile(`${dir}/${title}.md`);
       getDirectory();
     } catch (err) {
       setError("Failed to create file.");
@@ -154,7 +154,7 @@ export default function SideBar({ dir, currentFile, onSelectFile }: Props) {
           <input
             className="input w-full"
             type="text"
-            placeholder="New file fileName"
+            placeholder="New folder"
             value={path}
             onChange={(e) => {
               setPath(e.target.value);
@@ -180,7 +180,7 @@ export default function SideBar({ dir, currentFile, onSelectFile }: Props) {
           <input
             className="input w-full"
             type="text"
-            placeholder="New file fileName"
+            placeholder="New file"
             onChange={(e) => {
               setPath(e.target.value);
               setError("");

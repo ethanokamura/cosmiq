@@ -24,11 +24,15 @@ export default function FileObject({
     onDelete();
   }
 
+  console.log(`current file ${currentFile}`);
+  console.log(`this file ${file}`);
+  // console.log(file);
+
   return (
     <div className="flex gap-2 items-center w-full max-w-full">
       <button
-        className={`text-button text-sm text-left w-full ${
-          currentFile === file ? "bg-surface" : ""
+        className={`text-button text-sm text-left w-44 ${
+          currentFile == `${dir}/${file}` ? "bg-surface" : "bg-background/50"
         }`}
         onClick={() => onSelectFile(`${dir}/${file}`)}
       >
