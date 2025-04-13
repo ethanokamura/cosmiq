@@ -5,6 +5,15 @@
   "windows": ["main"],
   "permissions": [
     "core:default",
-    "opener:default"
+    "opener:default",
+    "fs:default",
+    {
+      "identifier": "fs:allow-document-write-recursive",
+      "allow": [{ "path": "$DOCUMENT/*" }]
+    },
+    {
+      "identifier": "fs:allow-document-read-recursive",
+      "allow": [{ "path": "$DOCUMENT/*" }]
+    }
   ]
 }
