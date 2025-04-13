@@ -15,7 +15,7 @@ type FolderProps = {
   pages: string[];
   onSelectFile: (fileName: string | null) => void;
   onCreate: () => void;
-  currentFile?: string | null;
+  currentFile: string | null;
   onDelete: () => void;
 };
 

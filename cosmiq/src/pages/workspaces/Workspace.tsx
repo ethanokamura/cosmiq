@@ -30,7 +30,7 @@ export default function Workspace() {
   if (!workspace) return null;
 
   return (
-    <div className="flex">
+    <div className="flex relative">
       <SideBar
         dir={workspace}
         currentFile={selectedFile}

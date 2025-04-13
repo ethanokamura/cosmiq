@@ -25,7 +25,6 @@ import { invoke } from "@tauri-apps/api/core";
 
 export default function Editor({ filePath }: { filePath: string }) {
   const [markdownContent, setMarkdownContent] = useState<string | null>(null);
-  const [apiKey, setApiKey] = useState<string | null>(null);
 
   const lowlight = createLowlight(all);
   lowlight.register('xml', xml);
@@ -35,16 +34,6 @@ export default function Editor({ filePath }: { filePath: string }) {
   lowlight.register('shell', bash);
   lowlight.register('cpp', cpp);
   lowlight.register('c', c);
-  
-  useEffect(() => {
-    // Load API key from environment variables.
-    const key = import.meta.env.VITE_GEMINI_API_KEY as string | undefined;
-    if (key) {
-      setApiKey(key);
-    } else {
-      console.error("GEMINI_API_KEY is not defined");
-    }
-  }, []);
 
   // 1. Load Markdown from file
   useEffect(() => {
@@ -99,7 +88,7 @@ export default function Editor({ filePath }: { filePath: string }) {
   );
 
   async function generateSummary() {
-    if (!apiKey || !filePath || !markdownContent) return;
+    if (!filePath || !markdownContent) return;
   
     try {
       const path = `${filePath.substring(0,filePath.length - 3)}-summary.md`
@@ -118,7 +107,7 @@ export default function Editor({ filePath }: { filePath: string }) {
 
 
   async function generateQuiz() {
-    if (!apiKey || !filePath || !markdownContent) return;
+    if (!filePath || !markdownContent) return;
     try {
       const newPath = `${import.meta.env.VITE_APP_DIRECTORY}/quizes/${filePath.split("/").reverse()[0]}.json`;
 

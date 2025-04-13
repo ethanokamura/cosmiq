@@ -115,7 +115,7 @@ export default function SideBar({ dir, currentFile, onSelectFile }: Props) {
   }
 
   return (
-    <div className="w-64 lg:w-56 px-4 h-screen card rounded-none">
+    <div className="max-w-96 min-w-64 px-4 h-screen overflow-y-scroll overflow-x-hidden card rounded-none">
       <Tooltip hintText="Go Home">
         <Link to="/">
           <button type="button" className="rounded-full p-2 mb-0">
@@ -124,6 +124,7 @@ export default function SideBar({ dir, currentFile, onSelectFile }: Props) {
         </Link>
       </Tooltip>
       <hr />
+      <h3>{dir}</h3>
       <div className="flex gap-2 justify-center">
         <Tooltip hintText="Create A Folder">
           <button
@@ -147,6 +148,7 @@ export default function SideBar({ dir, currentFile, onSelectFile }: Props) {
         </Tooltip>
       </div>
       <hr />
+
       {isCreatingDir && (
         <div className="mt-2 space-y-2">
           <input
@@ -198,39 +200,41 @@ export default function SideBar({ dir, currentFile, onSelectFile }: Props) {
           {error && <p className="text-destructive text-sm">{error}</p>}
         </div>
       )}
-      <div>
-        {directories && directories.length !== 0 ? (
-          directories.map((directory) => (
-            <SubDirectory
-              key={directory}
-              dir={`${dir}/${directory}`}
-              currentFile={currentFile}
-              onSelectFile={onSelectFile}
-              onSetFullPath={setPath}
-            />
-          ))
-        ) : (
-          <></>
-        )}
-      </div>
-      <ul className="flex flex-col gap-2">
-        {pages && pages.length !== 0 ? (
-          pages.map((file) => (
-            <li key={file} className="list-none">
-              <FileObject
-                key={file}
-                file={file}
-                dir={dir}
+      <div className="flex flex-col gap-4 w-fit">
+        <div>
+          {directories && directories.length !== 0 ? (
+            directories.map((directory) => (
+              <SubDirectory
+                key={directory}
+                dir={`${dir}/${directory}`}
                 currentFile={currentFile}
                 onSelectFile={onSelectFile}
-                onDelete={getDirectory}
+                onSetFullPath={setPath}
               />
-            </li>
-          ))
-        ) : (
-          <></>
-        )}
+            ))
+          ) : (
+            <></>
+          )}
+        </div>
+        <ul className="flex flex-col gap-2">
+          {pages && pages.length !== 0 ? (
+            pages.map((file) => (
+              <li key={file} className="list-none">
+                <FileObject
+                  key={file}
+                  file={file}
+                  dir={dir}
+                  currentFile={currentFile}
+                  onSelectFile={onSelectFile}
+                  onDelete={getDirectory}
+                />
+              </li>
+            ))
+          ) : (
+            <></>
+          )}
       </ul>
+    </div>
     </div>
   );
 }

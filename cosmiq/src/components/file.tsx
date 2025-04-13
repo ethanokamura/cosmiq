@@ -25,21 +25,23 @@ export default function FileObject({
   }
 
   return (
-    <div className="flex gap-2 items-center">
+    <div className="flex gap-2 items-center w-full max-w-full">
       <button
-        className={`text-button text-sm text-left w-full truncate ${
+        className={`text-button text-sm text-left w-full ${
           currentFile === file ? "bg-surface" : ""
         }`}
         onClick={() => onSelectFile(`${dir}/${file}`)}
       >
-        {file.replace(/\.md$/, "")}
+        <span className="text-ellipsis">
+          {file.replace(/\.md$/, "")} 
+        </span>
       </button>
       <Tooltip hintText="Delete">
         <button
           type="button"
           disabled={!file}
           onClick={() => deleteFile(`${dir}/${file}`)}
-          className="bg-transparent p-1 my-0 flex justify-center items-center gap-2"
+          className="bg-transparent shrink-0 p-1 my-0 flex justify-center items-center"
         >
           <FaXmark className="text-destructive" />
         </button>
