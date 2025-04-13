@@ -1,8 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Editor from "../../components/editor";
-import { Link } from "react-router-dom";
-import { FaRegQuestionCircle, FaRegFileAlt } from "react-icons/fa";
 import SideBar from "@/components/side-bar";
 
 export default function Workspace() {
@@ -43,26 +41,6 @@ export default function Workspace() {
       <main className="pt-14">
         {selectedFile ? (
           <div>
-            <div className="flex gap-4 items-center fixed right-10 top-4">
-              <Link to="/quiz">
-                <button
-                  type="button"
-                  className="bg-background w-full flex justify-center items-center gap-2 ring-1 ring-accent/50"
-                >
-                  <FaRegQuestionCircle className="text-accent" />
-                  <span className="text-text text-base">Quiz</span>
-                </button>
-              </Link>
-              <Link to="/summary">
-                <button
-                  type="button"
-                  className="bg-background w-full flex justify-center items-center gap-2 ring-1 ring-accent/50"
-                >
-                  <FaRegFileAlt className="text-accent" />
-                  <span className="text-text text-base">Summary</span>
-                </button>
-              </Link>
-            </div>
             <h1 className="text-4xl">
               {selectedFile.substring(0, selectedFile.length - 3)}
             </h1>
