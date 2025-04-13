@@ -57,8 +57,8 @@ export default function Directories() {
         setAbsPath(path);
         console.log("Fetching directories...");
         const dirs = await getDirectoryNames();
-        console.log("Got dirs:", dirs);
-        setSubdirs(dirs);
+        const updated = dirs.filter(dir => dir !== "quizzes");
+        setSubdirs(updated);
       } catch (err) {
         console.error("Error loading subdirs:", err);
       } finally {

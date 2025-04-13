@@ -1,5 +1,7 @@
 import {
   BaseDirectory,
+  exists,
+  mkdir,
   readTextFile,
   stat,
   writeTextFile,
@@ -8,7 +10,6 @@ import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import { Markdown } from "tiptap-markdown";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { FaRegQuestionCircle, FaRegFileAlt } from "react-icons/fa";
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight'
 import { all, createLowlight } from 'lowlight';
@@ -22,9 +23,11 @@ import bash from 'highlight.js/lib/languages/bash';
 import cpp from 'highlight.js/lib/languages/cpp';
 import c from 'highlight.js/lib/languages/c';
 import { invoke } from "@tauri-apps/api/core";
+import { useNavigate } from "react-router-dom";
 
 export default function Editor({ filePath }: { filePath: string }) {
   const [markdownContent, setMarkdownContent] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   const lowlight = createLowlight(all);
   lowlight.register('xml', xml);
@@ -106,23 +109,56 @@ export default function Editor({ filePath }: { filePath: string }) {
   }
 
 
-  async function generateQuiz() {
-    if (!filePath || !markdownContent) return;
+  const generateQuiz = async () => {
+    
     try {
-      const newPath = `${import.meta.env.VITE_APP_DIRECTORY}/quizes/${filePath.split("/").reverse()[0]}.json`;
-
-      const response = await invoke<string>("generate_quiz", {
-        input: { content: markdownContent },
-      });
-  
-      await writeTextFile(newPath, response,{
+      const tempPath = filePath.split("/").reverse()[0];
+      const file = tempPath.substring(0, tempPath.length - 3);
+      const quizPath = `${import.meta.env.VITE_APP_DIRECTORY}/quizzes/${file}.json`;
+      const pathExits = await exists(`${import.meta.env.VITE_APP_DIRECTORY}/quizzes`, {
         baseDir: BaseDirectory.Document,
       });
-    } catch (error) {
-      console.error("Failed to read file or generate quiz:", error);
-    }
-  }
 
+      if (!pathExits) {
+        await mkdir(`${import.meta.env.VITE_APP_DIRECTORY}/quizzes`, {
+          baseDir: BaseDirectory.Document,
+        });
+      }
+
+      const prompt = `
+      Generate a multiple-choice quiz in JSON format from the following Markdown content:
+
+      ${markdownContent}
+
+      Format:
+      {
+        "quiz_title": "Your Title",
+        "questions": [
+          {
+            "question": "Sample Question?",
+            "options": ["1", "2", "3", "4"],
+            "answer": 2
+            "reason": "short explaination"
+          }
+        ]
+      }`;
+
+      const response = await invoke<string>("generate_quiz", {
+        input: { prompt: prompt },
+      });
+      const text = response;
+      const start = text.indexOf("{");
+      const parsed = JSON.parse(text.slice(start));
+      await writeTextFile(quizPath, JSON.stringify(parsed, null, 2), {
+        baseDir: BaseDirectory.Document,
+      }).catch((err) => {
+        console.error("Failed to save file:", err);
+      });
+      navigate(`/quiz/${file}`);
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   if (!editor) return <p>Loading...</p>;
 
@@ -131,18 +167,18 @@ export default function Editor({ filePath }: { filePath: string }) {
     <div>
        <EditorContent editor={editor}  />
        <div className="flex gap-4 items-center fixed right-10 bottom-4">
-        <Link to={`/quiz/${filePath}`}>
-          <button
-            type="button"
-            onClick={generateQuiz}
-            className="bg-background w-full flex justify-center items-center gap-2 ring-1 ring-accent/50"
-          >
-            <FaRegQuestionCircle className="text-accent" />
-            <span className="text-text text-base">Quiz</span>
-          </button>
-        </Link>
         <button
           type="button"
+          disabled={!markdownContent || markdownContent == ""}
+          onClick={generateQuiz}
+          className="bg-background w-full flex justify-center items-center gap-2 ring-1 ring-accent/50"
+        >
+          <FaRegQuestionCircle className="text-accent" />
+          <span className="text-text text-base">Quiz</span>
+        </button>
+        <button
+          type="button"
+          disabled={!markdownContent || markdownContent == ""}
           onClick={generateSummary}
           className="bg-background w-full flex justify-center items-center gap-2 ring-1 ring-accent/50"
         >

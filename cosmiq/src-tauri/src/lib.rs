@@ -11,8 +11,7 @@ struct GenerateSummaryInput {
 
 #[derive(Debug, Deserialize)]
 pub struct GenerateQuizInput {
-    pub topic: String,
-    pub num_questions: u8,
+    pub prompt: String,
 }
 
 #[command]
@@ -69,22 +68,17 @@ async fn generate_quiz(input: GenerateQuizInput) -> Result<String, String> {
     println!("Model URL: {}", url);
 
     let client = reqwest::Client::new();
-    let prompt = format!(
-        "Create a quiz with {} questions about {}. Return the response as a JSON object with the following structure:\
-        {{\"questions\": [{{\"question\": \"Question text\", \"options\": [\"Option A\", \"Option B\", \"Option C\", \"Option D\"], \"answer\": \"Correct option\"}}]}}",
-        input.num_questions, input.topic
-    );
 
     let payload = serde_json::json!({
-        "contents": [
-            {
-                "parts": [
-                    {
-                        "text": prompt
-                    }
-                ]
-            }
-        ]
+      "contents": [
+          {
+              "parts": [
+                  {
+                      "text": input.prompt
+                  }
+              ]
+          }
+      ]
     });
 
     let response = client
@@ -139,7 +133,7 @@ pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_fs::init())
         .plugin(tauri_plugin_opener::init())
-        .invoke_handler(tauri::generate_handler![generate_summary])
+        .invoke_handler(tauri::generate_handler![generate_summary, generate_quiz])
         .run(tauri::generate_context!())
         .expect("error while running tauri application")
 }
