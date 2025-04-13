@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import Home from "../pages/Home";
-import Quiz from "../pages/Quiz";
-import Summary from "../pages/Summary";
+import Quiz from "../pages/quiz/Quiz";
+import Summary from "../pages/summary/Summary";
 import CreateDirectory from "../pages/Create";
 import Workspace from "../pages/workspaces/Workspace";
 

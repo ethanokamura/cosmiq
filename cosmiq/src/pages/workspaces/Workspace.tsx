@@ -5,11 +5,10 @@ import SideBar from "@/components/side-bar";
 
 export default function Workspace() {
   const { workspace } = useParams();
-
+  
   const [selectedFile, setSelectedFile] = useState<string | null>(null);
   const [fullPath, setFullPath] = useState<string>("");
-
-  // at the top
+  
   const navigate = useNavigate();
 
   useEffect(() => {

@@ -67,13 +67,13 @@ export default function SideBar({ dir, currentFile, onSelectFile }: Props) {
         });
         if (pathExists) {
           /// Send some sort of message
-          redirect(`/dir/${path}`);
+          redirect(`/workspaces/${path}`);
           return;
         }
         await mkdir(path, {
           baseDir: BaseDirectory.Document,
         });
-        redirect(`/dir/${path}`);
+        redirect(`/workspaces/${path}`);
       } catch (e) {
         console.error("Error creating directory:", e);
       }
