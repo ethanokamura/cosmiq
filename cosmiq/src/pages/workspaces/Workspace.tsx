@@ -36,15 +36,9 @@ export default function Workspace() {
         currentFile={selectedFile}
         onSelectFile={setSelectedFile}
       />
-      {/* directories={directories}  */}
-      <main className="pt-14">
-        {selectedFile ? (
-          <div>
-            <h1 className="text-4xl">
-              {selectedFile.substring(0, selectedFile.length - 3)}
-            </h1>
-            <Editor filePath={fullPath} />
-          </div>
+      <main className="pt-14 overflow-y-scroll h-screen">
+        {selectedFile ? ( 
+          <Editor filePath={fullPath} />
         ) : (
           <div className="card mx-auto">
             <h1>No file selected</h1>

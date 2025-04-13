@@ -1,5 +1,6 @@
 import { BaseDirectory, remove } from "@tauri-apps/plugin-fs";
-import { FaTrash } from "react-icons/fa";
+import { FaXmark } from "react-icons/fa6";
+import Tooltip from "./tooltip";
 
 type Props = {
   dir: string;
@@ -24,7 +25,7 @@ export default function FileObject({
   }
 
   return (
-    <div>
+    <div className="flex gap-2 items-center">
       <button
         className={`text-button text-sm text-left w-full truncate ${
           currentFile === file ? "bg-surface" : ""
@@ -33,15 +34,16 @@ export default function FileObject({
       >
         {file.replace(/\.md$/, "")}
       </button>
-      <button
-        type="button"
-        disabled={!file}
-        onClick={() => deleteFile(`${dir}/${file}`)}
-        className="bg-background w-full flex justify-center items-center gap-2 ring-1 ring-destructive/50"
-      >
-        <FaTrash className="text-destructive" />
-        <span className="text-destructive text-base">Delete</span>
-      </button>
+      <Tooltip hintText="Delete">
+        <button
+          type="button"
+          disabled={!file}
+          onClick={() => deleteFile(`${dir}/${file}`)}
+          className="bg-transparent p-1 my-0 flex justify-center items-center gap-2"
+        >
+          <FaXmark className="text-destructive" />
+        </button>
+      </Tooltip>
     </div>
   );
 }

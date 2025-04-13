@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { BaseDirectory, mkdir, exists, create } from "@tauri-apps/plugin-fs";
 import { PiPlanetBold } from "react-icons/pi";
-import { FaFile, FaFolder, FaPlus } from "react-icons/fa";
+import { FaFile, FaFolder } from "react-icons/fa";
 import { Link, redirect } from "react-router-dom";
 import SubDirectory from "./sub-directory";
 import { getPagesFromDir } from "@/lib/file-system";
 import FileObject from "./file";
+import Tooltip from "./tooltip";
 
 type Props = {
   dir: string;
@@ -120,24 +121,29 @@ export default function SideBar({ dir, currentFile, onSelectFile }: Props) {
           <PiPlanetBold size={32} />
         </button>
       </Link>
-      <button
-        type="button"
-        className="w-full my-2"
-        onClick={() => setIsCreatingDir(true)}
-        disabled={isCreatingFile}
-      >
-        <FaPlus size={14} />
-        <FaFolder size={14} />
-      </button>
-      <button
-        type="button"
-        className="w-full my-2"
-        onClick={() => setIsCreatingFile(true)}
-        disabled={isCreatingDir}
-      >
-        <FaPlus size={14} />
-        <FaFile size={14} />
-      </button>
+      <hr />
+      <div className="flex gap-2 justify-center">
+        <Tooltip hintText="Create A Folder.">
+          <button
+            type="button"
+            className="w-full my-2 flex gap-1 items-center border-1 border-accent bg-transparent text-accent"
+            onClick={() => setIsCreatingDir(true)}
+            disabled={isCreatingFile}
+            >
+            <FaFolder size={14} />
+          </button>
+        </Tooltip>
+        <Tooltip hintText="Create A File.">
+          <button
+            type="button"
+            className="w-full my-2 flex gap-1 items-center border-1 border-accent bg-transparent text-accent"
+            onClick={() => setIsCreatingFile(true)}
+            disabled={isCreatingDir}
+            >
+            <FaFile size={14} />
+          </button>
+        </Tooltip>
+      </div>
       <hr />
       {isCreatingDir && (
         <div className="mt-2 space-y-2">
@@ -205,7 +211,7 @@ export default function SideBar({ dir, currentFile, onSelectFile }: Props) {
           <></>
         )}
       </div>
-      <div>
+      <ul className="flex flex-col gap-2">
         {pages && pages.length !== 0 ? (
           pages.map((file) => (
             <li key={file} className="list-none">
@@ -222,7 +228,7 @@ export default function SideBar({ dir, currentFile, onSelectFile }: Props) {
         ) : (
           <></>
         )}
-      </div>
+      </ul>
     </div>
   );
 }

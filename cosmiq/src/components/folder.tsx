@@ -8,6 +8,7 @@ import {
 } from "react-icons/fa";
 import { FaFolderClosed } from "react-icons/fa6";
 import FileObject from "./file";
+import Tooltip from "./tooltip";
 
 type FolderProps = {
   dir: string;
@@ -69,13 +70,15 @@ export default function Folder({
           {open ? <FaFolderOpen size={12} /> : <FaFolderClosed size={12} />}
           <span className="text-base">{dir.split("/").reverse()[0]}</span>
         </button>
-        <button
-          type="submit"
-          className="icon-button m-0"
-          onClick={() => setIsCreating(true)}
-        >
-          <FaPlus size={12} />
-        </button>
+        <Tooltip hintText={`Create a File Within ${dir.split("/").reverse()[0]}`}>
+          <button
+            type="submit"
+            className="icon-button m-0"
+            onClick={() => setIsCreating(true)}
+            >
+            <FaPlus size={12} />
+          </button>
+        </Tooltip>
       </div>
       {isCreating && (
         <div className="mt-2 space-y-2">

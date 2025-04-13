@@ -1,20 +1,39 @@
 import {
   BaseDirectory,
-  create,
   readTextFile,
   writeTextFile,
 } from "@tauri-apps/plugin-fs";
-import { GoogleGenerativeAI } from "@google/generative-ai";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import { Markdown } from "tiptap-markdown";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaRegQuestionCircle, FaRegFileAlt } from "react-icons/fa";
+import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight'
+import { all, createLowlight } from 'lowlight';
+
+import css from 'highlight.js/lib/languages/css';
+import js from 'highlight.js/lib/languages/javascript';
+import ts from 'highlight.js/lib/languages/typescript';
+import xml from 'highlight.js/lib/languages/xml';
+import bash from 'highlight.js/lib/languages/bash';
+import cpp from 'highlight.js/lib/languages/cpp';
+import c from 'highlight.js/lib/languages/c';
+import { invoke } from "@tauri-apps/api/core";
 
 export default function Editor({ filePath }: { filePath: string }) {
   const [markdownContent, setMarkdownContent] = useState<string | null>(null);
   const [apiKey, setApiKey] = useState<string | null>(null);
+
+  const lowlight = createLowlight(all);
+  lowlight.register('xml', xml);
+  lowlight.register('css', css);
+  lowlight.register('javascript', js);
+  lowlight.register('typescript', ts);
+  lowlight.register('shell', bash);
+  lowlight.register('cpp', cpp);
+  lowlight.register('c', c);
+  
 
   useEffect(() => {
     // Load API key from environment variables.
@@ -45,7 +64,13 @@ export default function Editor({ filePath }: { filePath: string }) {
   // 2. Only init editor after markdown is loaded
   const editor = useEditor(
     {
-      extensions: [StarterKit, Markdown],
+      extensions: [
+        StarterKit,
+        CodeBlockLowlight.configure({
+          lowlight: lowlight,
+        }),
+        Markdown
+      ],
       content: markdownContent ?? "Hello World",
       onUpdate({ editor }) {
         const md = editor.storage.markdown.getMarkdown();
@@ -65,20 +90,13 @@ export default function Editor({ filePath }: { filePath: string }) {
     try {
       const path = `${filePath.substring(0,filePath.length - 3)}-summary.md`
 
-      const genAI = new GoogleGenerativeAI(apiKey);
-      const model = genAI.getGenerativeModel({ model: "gemini-pro" });
-
-      const result = await model.generateContent({
-        contents: [{ parts: [{ text: markdownContent as string }], role: "user" }],
+      const response = await invoke<string>("generate_summary", {
+        input: { content: markdownContent },
       });
-
-      const response = await result.response;
-      const text = response.text();
-
-      const content = await writeTextFile(path, text,{
+  
+      await writeTextFile(path, response,{
         baseDir: BaseDirectory.Document,
       });
-
     } catch (error) {
       console.error("Failed to read file or generate summary:", error);
     }
@@ -89,7 +107,7 @@ export default function Editor({ filePath }: { filePath: string }) {
   return (
 
     <div>
-       <EditorContent editor={editor} />
+       <EditorContent editor={editor}  />
        <div className="flex gap-4 items-center fixed right-10 bottom-4">
         <Link to={`/quiz/${filePath}`}>
           <button

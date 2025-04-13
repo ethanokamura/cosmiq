@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import "highlight.js/styles/atom-one-dark.css";
 
 @theme {
   --color-background: #10141a;
@@ -16,8 +17,11 @@
 }
 
 @layer base {
-  html::-webkit-scrollbar {
+  *::-webkit-scrollbar {
     display: none;
+  }
+  *:focus {
+    outline: none;
   }
 
   html {
@@ -117,6 +121,54 @@
   }
   .text-button {
     @apply text-text2 bg-background/30 hover:bg-background/90 py-1 px-2 m-0;
+  }
+
+  .PromseMirror hr {
+    @apply h-[2px] rounded-lg my-4 bg-text3 opacity-25 border-0;
+
+  }
+  .ProseMirror :is(b, a, strong) {
+    @apply text-accent;
+  }
+  .ProseMirror :is(h1, h2, h3, h4, h5, h6) {
+    @apply my-3 capitalize font-bold;
+  }
+  .ProseMirror :not(h1, h2, h3, h4, h5, h6) {
+    @apply text-base md:text-lg;
+  }
+  .ProseMirror :not(h1, h2, h3, h4, h5, h6, b, a, strong) {
+    @apply text-text2;
+  }
+  .ProseMirror p:not(:is(h1, h2, h3, h4, h5, h6) + p) {
+    @apply mt-3
+  }
+  .ProseMirror :is(ol) {
+    @apply list-decimal pl-5 marker:text-accent;
+  }
+  .ProseMirror :is(ul) {
+    @apply list-['>'] pl-5 marker:text-text3;
+  }
+  .ProseMirror a {
+    @apply underline;
+  }
+  .ProseMirror img {
+    @apply w-4/5 mx-auto;
+  }
+  .ProseMirror :is(ul, ol) li {
+    @apply my-0 px-2;
+  }
+  .ProseMirror code:not(:is(pre code)) {
+    @apply bg-surface px-2 py-[2px] rounded-md text-text2;
+  }
+  .ProseMirror pre {
+    @apply mt-3 bg-surface overflow-x-scroll p-4 rounded-md max-w-full mb-5;
+    tab-size: 2;
+  }
+  .ProseMirror pre::-webkit-scrollbar {
+    @apply bg-transparent;
+  }
+  .ProseMirror pre::-webkit-scrollbar-thumb {
+    @apply bg-transparent;
   }
 }
 
