@@ -1,0 +1,125 @@
+{
+  "quiz_title": "Process Basics and Management",
+  "questions": [
+    {
+      "question": "What is a process?",
+      "options": [
+        "A program stored on disk.",
+        "An instance of a program being executed.",
+        "A collection of data structures.",
+        "A type of operating system."
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "In a multiprocessing OS, what can be executed at the same time?",
+      "options": [
+        "Only multiple programs.",
+        "Only multiple instances of the same program.",
+        "A combination of multiple programs and multiple instances of programs.",
+        "Neither multiple programs nor multiple instances of programs."
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "What does 'true concurrency' mean in the context of multiple cores?",
+      "options": [
+        "Multiple processes running simultaneously without time-sharing.",
+        "Multiple processes running sequentially.",
+        "Multiple processes running using time-sharing.",
+        "A single process running without interruption."
+      ],
+      "answer": "A"
+    },
+    {
+      "question": "On a single-core system, how is concurrency achieved?",
+      "options": [
+        "True parallelism.",
+        "Time-sharing.",
+        "Both true parallelism and time-sharing.",
+        "Neither true parallelism nor time-sharing."
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "What information is typically included in a Process Control Block (PCB)?",
+      "options": [
+        "Only the process ID (PID).",
+        "PID, UserID, Parent Process, Memory Management information, File Management information.",
+        "PID and the state of variables only.",
+        "Only the state of variables and open files."
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "What is the user space in the context of paged virtual memory?",
+      "options": [
+        "The memory space accessible to the operating system.",
+        "The memory space accessible to a specific process.",
+        "The memory space used for system calls.",
+        "The memory space used for inter-process communication."
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "Which command dynamically shows memory and CPU usage, and processes using the most resources?",
+      "options": [
+        "ps",
+        "pstree",
+        "kill",
+        "top"
+      ],
+      "answer": "D"
+    },
+    {
+      "question": "How does a process create a subprocess in a Unix-like system?",
+      "options": [
+        "Using the `exec()` function.",
+        "Using the `fork()` function.",
+        "Using the `kill()` function.",
+        "Using the `ps()` function."
+      ],
+      "answer": "B"
+    },
+    {
+      "question": "What is the return value of `fork()` in the child process?",
+      "options": [
+        "The PID of the parent process.",
+        "The PID of the child process.",
+        "0",
+        "-1"
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "What does the `execl()` function do?",
+      "options": [
+        "Creates a new process.",
+        "Terminates a process.",
+        "Replaces the current process image with a new executable.",
+        "Waits for a child process to finish."
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "What happens to a child process if its parent process terminates first?",
+      "options": [
+        "It terminates immediately.",
+        "It becomes a zombie process.",
+        "It becomes an orphan process, typically adopted by init.",
+        "It continues to run unaffected."
+      ],
+      "answer": "C"
+    },
+    {
+      "question": "What is a fork bomb?",
+      "options": [
+        "A type of malware that attacks the fork() system call.",
+        "A programming error that causes a process to repeatedly create copies of itself, exponentially increasing resource consumption.",
+        "A tool used to manage processes.",
+        "A system call that terminates a process."
+      ],
+      "answer": "B"
+    }
+  ]
+}

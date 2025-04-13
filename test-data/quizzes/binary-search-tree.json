@@ -1,0 +1,71 @@
+{
+  "quiz_title": "Binary Search Tree Quiz",
+  "questions": [
+    {
+      "question": "What is the key property that distinguishes a Binary Search Tree (BST)?",
+      "options": [
+        "All nodes have exactly two children.",
+        "The left child's value is less than the parent, and the right child's value is greater than the parent.",
+        "All nodes have a value greater than their parent.",
+        "The tree is always perfectly balanced."
+      ],
+      "answer": 1,
+      "reason": "A BST is defined by the property that the left subtree contains nodes with keys less than the parent node's key, and the right subtree contains nodes with keys greater than the parent node's key."
+    },
+    {
+      "question": "What is the worst-case time complexity for basic operations (search, insert, delete) in a BST?",
+      "options": [
+        "O(log n)",
+        "O(n)",
+        "O(1)",
+        "O(n^2)"
+      ],
+      "answer": 1,
+      "reason": "In the worst case (a skewed tree resembling a linked list), the height of the tree can be equal to the number of nodes (n), leading to O(n) time complexity."
+    },
+    {
+      "question": "What is the best-case time complexity for basic operations (search, insert, delete) in a BST?",
+      "options": [
+        "O(n)",
+        "O(log n)",
+        "O(1)",
+        "O(n^2)"
+      ],
+      "answer": 1,
+      "reason": "In a balanced BST, the height of the tree is logarithmic with respect to the number of nodes, resulting in O(log n) time complexity."
+    },
+    {
+      "question": "Which traversal method results in a sorted list of nodes when applied to a BST?",
+      "options": [
+        "Pre-order traversal",
+        "Post-order traversal",
+        "In-order traversal",
+        "Level-order traversal"
+      ],
+      "answer": 2,
+      "reason": "In-order traversal visits the left subtree, then the current node, then the right subtree.  This results in a sorted sequence for a BST."
+    },
+    {
+      "question": "To find the minimum value in a BST, you should:",
+      "options": [
+        "Traverse to the rightmost node.",
+        "Traverse to the leftmost node.",
+        "Traverse to the root node.",
+        "It is not possible to find the minimum value in a BST."
+      ],
+      "answer": 1,
+      "reason": "The minimum value in a BST is always found at the leftmost node of the tree."
+    },
+    {
+      "question": "What is a potential problem with unbalanced BSTs?",
+      "options": [
+        "They are always slower than other data structures.",
+        "They can become inefficient, approaching O(n) time complexity for operations.",
+        "They cannot be used for searching.",
+        "They require more memory than balanced trees."
+      ],
+      "answer": 1,
+      "reason": "Unbalanced BSTs can degenerate into a linked list-like structure, leading to linear time complexity for operations."
+    }
+  ]
+}
