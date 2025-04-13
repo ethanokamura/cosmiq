@@ -116,14 +116,16 @@ export default function SideBar({ dir, currentFile, onSelectFile }: Props) {
 
   return (
     <div className="w-64 lg:w-56 px-4 h-screen card rounded-none">
-      <Link to="/">
-        <button type="button" className="rounded-full p-2 mb-0">
-          <PiPlanetBold size={32} />
-        </button>
-      </Link>
+      <Tooltip hintText="Go Home">
+        <Link to="/">
+          <button type="button" className="rounded-full p-2 mb-0">
+            <PiPlanetBold size={32} />
+          </button>
+        </Link>
+      </Tooltip>
       <hr />
       <div className="flex gap-2 justify-center">
-        <Tooltip hintText="Create A Folder.">
+        <Tooltip hintText="Create A Folder">
           <button
             type="button"
             className="w-full my-2 flex gap-1 items-center border-1 border-accent bg-transparent text-accent"
@@ -133,7 +135,7 @@ export default function SideBar({ dir, currentFile, onSelectFile }: Props) {
             <FaFolder size={14} />
           </button>
         </Tooltip>
-        <Tooltip hintText="Create A File.">
+        <Tooltip hintText="Create A File">
           <button
             type="button"
             className="w-full my-2 flex gap-1 items-center border-1 border-accent bg-transparent text-accent"

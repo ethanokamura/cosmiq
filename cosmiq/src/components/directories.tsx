@@ -72,12 +72,12 @@ export default function Directories() {
   if (loading) return <div>Loading...</div>;
 
   return (
-    <div className="card flex flex-col gap-5 items-center rounded-none h-screen w-96 overflow-hidden text-start">
+    <div className="card flex flex-col gap-5 items-center rounded-none h-screen w-96 overflow-hidden text-start z-10">
       <div className="flex items-center justify-between w-full border-b-2 border-surface">
         <h1>Create</h1>
         <Link to="/create" className="">
           <Tooltip hintText="Create a Directory">
-            <button className="p-2 rounded flex items-center gap-4 bg-transparent ring-2 ring-accent text-accent">
+            <button className="bg-transparent p-0 m-0 text-accent">
               <FaPlus />
             </button>
           </Tooltip>
