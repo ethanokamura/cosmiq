@@ -1,15 +1,15 @@
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
 export default function Starfield() {
   useEffect(() => {
-    const starfield = document.getElementById('starfield');
+    const starfield = document.getElementById("starfield");
     if (!starfield) return;
 
     const starCount = 150;
 
     for (let i = 0; i < starCount; i++) {
-      const star = document.createElement('div');
-      star.className = 'star';
+      const star = document.createElement("div");
+      star.className = "star";
 
       const x = Math.random() * 100;
       const y = Math.random() * 100;
@@ -21,7 +21,7 @@ export default function Starfield() {
     }
 
     return () => {
-      starfield.innerHTML = '';
+      starfield.innerHTML = "";
     };
   }, []);
 
