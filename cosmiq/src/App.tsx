@@ -1,17 +1,12 @@
 import "./App.css";
 import AppRoutes from "./routes/AppRoutes";
-import Sidebar from "./components/sidebar/sidebar";
-import Starfield from "./components/stars/starfield";
+// import Sidebar from "./components/sidebar/sidebar";
+// import { useLocation } from 'react-router-dom';
 
 function App() {
-
-  return (
-    <div className="flex">
-      <Starfield/>
-      <Sidebar />
-      <AppRoutes />
-    </div>
-  );
+  // const location = useLocation();
+  // const currentRoute = location.pathname;
+  return <AppRoutes />;
 }
 
 export default App;

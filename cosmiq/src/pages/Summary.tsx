@@ -39,7 +39,6 @@ const [content,setContent]=useState<string|null>(null);
 //find a way to get the text out of this component
 
 export default function Summary() {
-
   return (
     <main>
       <h1>Summary Page</h1>

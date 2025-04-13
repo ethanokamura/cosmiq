@@ -5,54 +5,61 @@
   --color-background: #10141a;
   --color-background-2: #151b24;
   --color-surface: #1c232e;
-  --color-accent: #61AFEF;
+  --color-accent: #8875e0; /* 61AFEF */
   --color-destructive: #e07575;
   --color-text: #e1e6f0;
   --color-text2: #969eb0;
   --color-text3: #666e7d;
   --width-content-width: 90ch;
-  --font-grotesk: "Hanken Grotesk", "sans-serif"; 
-  --font-rubik: "Rubik", "sans-serif"; 
+  --font-grotesk: "Hanken Grotesk", "sans-serif";
+  --font-rubik: "Rubik", "sans-serif";
 }
 
 @layer base {
-  html::-webkit-scrollbar { display: none; }
+  html::-webkit-scrollbar {
+    display: none;
+  }
 
   html {
-    @apply h-screen w-screen p-0 m-0 text-text bg-gradient-to-tl from-purple-900 to-background-2 bg-fixed font-semibold
+    @apply h-screen w-screen p-0 m-0 text-text bg-background font-semibold;
   }
 
   body {
-    @apply p-0 m-0 w-full h-full
+    @apply p-0 m-0 w-full h-full;
   }
 
   main {
-    @apply max-w-4xl mx-auto bg-fixed bg-cover px-10 pb-20 pt-48
+    @apply max-w-4xl w-full mx-auto bg-fixed bg-cover px-10 py-20;
   }
 
   section {
-    @apply flex flex-col gap-5 md:gap-8
+    @apply flex flex-col gap-5 md:gap-8;
   }
 
-  h1, h2, h3 { @apply font-bold transition-all ease-linear duration-300; }
+  h1,
+  h2,
+  h3 {
+    @apply font-bold transition-all ease-linear duration-300;
+  }
 
   h1 {
-    @apply my-5 text-4xl md:text-6xl
+    @apply my-5 text-4xl md:text-6xl;
   }
 
   h2 {
-    @apply my-3 text-2xl md:text-4xl
+    @apply my-3 text-2xl md:text-4xl;
   }
 
   h3 {
-    @apply my-2 text-lg md:text-2xl
+    @apply my-2 text-lg md:text-2xl;
   }
 
   hr {
-    @apply h-[2px] rounded-lg my-4 bg-text3 opacity-25 border-0
+    @apply h-[2px] rounded-lg my-4 bg-text3 opacity-25 border-0;
   }
 
-  p, li {
+  p,
+  li {
     @apply text-text2 text-lg md:text-xl;
   }
 
@@ -64,48 +71,52 @@
     @apply my-2 block md:text-lg;
   }
 
-  input, textarea {
+  input,
+  textarea {
     @apply w-full outline-none bg-background border-none rounded px-3 py-2;
   }
 
   textarea {
-    @apply h-32
+    @apply h-32;
   }
 
   button {
-    @apply bg-accent text-xl px-4 py-2 rounded my-5 text-background
+    @apply bg-accent text-xl px-8 py-1 rounded my-5 text-background;
   }
 
-  button, a {
-    @apply transition-all ease-linear duration-100
+  button,
+  a {
+    @apply transition-all ease-linear duration-100;
   }
 
-  button:hover, a:hover {
-    @apply scale-125
+  button:hover,
+  a:hover {
+    @apply scale-110;
   }
 }
 
-
 @layer components {
   .home {
-    @apply pt-20 text-center flex flex-col items-center gap-4
+    @apply pt-20 text-center flex flex-col items-center gap-4;
   }
 
   .card {
-    @apply w-fit text-center bg-surface/50 rounded shadow-2xl px-4 py-2 backdrop-blur-sm
+    @apply w-fit text-center bg-surface/50 rounded shadow-2xl px-4 py-2 backdrop-blur-sm;
+  }
+
+  .dark-card {
+    @apply bg-surface/20 rounded shadow-2xl backdrop-blur-sm;
   }
 
   .card h1 {
-    @apply my-3 text-2xl md:text-4xl
+    @apply my-3 text-2xl md:text-4xl;
   }
 
-
-  .dir ul li {
-    @apply list-['├']
+  .icon-button {
+    @apply text-background bg-accent p-1;
   }
-
-  .dir ul li:last-child {
-    @apply list-['└']
+  .text-button {
+    @apply text-text2 bg-background/30 hover:bg-background/90 py-1 px-2 m-0;
   }
 }
 
@@ -121,7 +132,11 @@
   }
 
   @keyframes twinkle {
-    0% { opacity: 0.3; }
-    100% { opacity: 1; }
+    0% {
+      opacity: 0.3;
+    }
+    100% {
+      opacity: 1;
+    }
   }
 }
