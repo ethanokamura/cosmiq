@@ -1,7 +1,7 @@
 // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
 use tauri::command;
 use serde::Deserialize;
-use reqwest::header::{CONTENT_TYPE, AUTHORIZATION};
+use reqwest::header::{CONTENT_TYPE};
 use std::env;
 
 #[derive(Deserialize)]
