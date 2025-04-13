@@ -1,8 +1,9 @@
-import { Routes, Route } from 'react-router-dom';
-import Home from '../pages/Home';
-import Quiz from '../pages/Quiz';
-import Summary from '../pages/Summary';
-import Edit from '../pages/Edit';
+import { Routes, Route } from "react-router-dom";
+import Home from "../pages/Home";
+import Quiz from "../pages/Quiz";
+import Summary from "../pages/Summary";
+import CreateDirectory from "../pages/Create";
+import Workspace from "../pages/workspaces/Workspace";
 
 const AppRoutes = () => {
   return (
@@ -10,8 +11,8 @@ const AppRoutes = () => {
       <Route path="/" element={<Home />} />
       <Route path="/quiz" element={<Quiz />} />
       <Route path="/summary" element={<Summary />} />
-      <Route path="/edit" element={<Edit />} />
-      {/* <Route path="/profile/:username" element={<Edit />} /> */}
+      <Route path="/create" element={<CreateDirectory />} />
+      <Route path="/workspaces/:workspace" element={<Workspace />} />
     </Routes>
   );
 };
