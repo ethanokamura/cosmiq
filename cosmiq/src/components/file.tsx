@@ -6,19 +6,24 @@ type Props = {
   currentFile?: string | null;
   file: string;
   onSelectFile: (fileName: string | null) => void;
-  onDelete: () => void
+  onDelete: () => void;
 };
 
-export default function FileObject({dir, file, currentFile, onSelectFile, onDelete}: Props) {
-
+export default function FileObject({
+  dir,
+  file,
+  currentFile,
+  onSelectFile,
+  onDelete,
+}: Props) {
   async function deleteFile(path: string) {
-    const actualPath = `${import.meta.env.VITE_APP_DIRECTORY}/${path}`
+    const actualPath = `${import.meta.env.VITE_APP_DIRECTORY}/${path}`;
     await remove(actualPath, { baseDir: BaseDirectory.Document });
     onSelectFile(null);
     onDelete();
   }
 
-  return(
+  return (
     <div>
       <button
         className={`text-button text-sm text-left w-full truncate ${
