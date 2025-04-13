@@ -34,7 +34,6 @@ export default function Editor({ filePath }: { filePath: string }) {
   lowlight.register('cpp', cpp);
   lowlight.register('c', c);
   
-
   useEffect(() => {
     // Load API key from environment variables.
     const key = import.meta.env.VITE_GEMINI_API_KEY as string | undefined;
@@ -49,6 +48,7 @@ export default function Editor({ filePath }: { filePath: string }) {
   useEffect(() => {
     const loadFile = async () => {
       try {
+        console.log(filePath);
         const content = await readTextFile(filePath, {
           baseDir: BaseDirectory.Document,
         });
@@ -102,6 +102,25 @@ export default function Editor({ filePath }: { filePath: string }) {
     }
   }
 
+
+  async function generateQuiz() {
+    if (!apiKey || !filePath || !markdownContent) return;
+    try {
+      const newPath = `${import.meta.env.VITE_APP_DIRECTORY}/quizes/${filePath.split("/").reverse()[0]}.json`;
+
+      const response = await invoke<string>("generate_quiz", {
+        input: { content: markdownContent },
+      });
+  
+      await writeTextFile(newPath, response,{
+        baseDir: BaseDirectory.Document,
+      });
+    } catch (error) {
+      console.error("Failed to read file or generate quiz:", error);
+    }
+  }
+
+
   if (!editor) return <p>Loading...</p>;
 
   return (
@@ -112,6 +131,7 @@ export default function Editor({ filePath }: { filePath: string }) {
         <Link to={`/quiz/${filePath}`}>
           <button
             type="button"
+            onClick={generateQuiz}
             className="bg-background w-full flex justify-center items-center gap-2 ring-1 ring-accent/50"
           >
             <FaRegQuestionCircle className="text-accent" />
