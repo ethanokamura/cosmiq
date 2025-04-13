@@ -3,10 +3,11 @@ import { mkdir, readDir } from "@tauri-apps/plugin-fs";
 import { documentDir, join } from "@tauri-apps/api/path";
 import { exists, BaseDirectory } from "@tauri-apps/plugin-fs";
 import { Link } from "react-router-dom";
+import Tooltip from "./tooltip";
+import { FaPlus } from "react-icons/fa";
 
 async function getDirectoryNames(): Promise<string[]> {
   const appPath = import.meta.env.VITE_APP_DIRECTORY!;
-
   const pathExits = await exists(appPath, {
     baseDir: BaseDirectory.Document,
   });
@@ -46,11 +47,14 @@ async function getDirectoryNames(): Promise<string[]> {
 
 export default function Directories() {
   const [subdirs, setSubdirs] = useState<string[]>([]);
+  const [absPath, setAbsPath] = useState<string>(".");
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const loadDirs = async () => {
       try {
+        const path = await documentDir();
+        setAbsPath(path);
         console.log("Fetching directories...");
         const dirs = await getDirectoryNames();
         console.log("Got dirs:", dirs);
@@ -68,14 +72,29 @@ export default function Directories() {
   if (loading) return <div>Loading...</div>;
 
   return (
-    <div>
-      {subdirs.map((dir) => (
-        <Link to={`/workspaces/${dir}`}>
-          <div className="card" key={dir}>
-            {dir}
-          </div>
+    <div className="card flex flex-col gap-5 items-center rounded-none h-screen w-96 overflow-hidden text-start">
+      <div className="flex items-center justify-between w-full border-b-2 border-surface">
+        <h1>Create</h1>
+        <Link to="/create" className="">
+          <Tooltip hintText="Create a Directory">
+            <button className="p-2 rounded flex items-center gap-4 bg-transparent ring-2 ring-accent text-accent">
+              <FaPlus />
+            </button>
+          </Tooltip>
         </Link>
-      ))}
+      </div>
+      <ul className="w-full flex flex-col gap-2 overflow-y-scroll">
+        {subdirs.map((dir) => (
+          <li key={dir} className="">
+            <Link to={`/workspaces/${dir}`}>
+              <button className="hover:bg-background/90 bg-background/20 rounded px-4 py-2 text-start w-full my-0">
+                <h1 className="my-2 text-lg md:text-xl font-medium text-text">{dir}</h1>
+                <p className="text-xs md:text-sm break-words font-medium text-text3">{`${absPath}/${import.meta.env.VITE_APP_DIRECTORY}/${dir}`}</p>
+              </button>
+            </Link>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }

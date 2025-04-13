@@ -1,6 +1,7 @@
 import {
   BaseDirectory,
   readTextFile,
+  stat,
   writeTextFile,
 } from "@tauri-apps/plugin-fs";
 import { useEditor, EditorContent } from "@tiptap/react";
@@ -11,6 +12,7 @@ import { Link } from "react-router-dom";
 import { FaRegQuestionCircle, FaRegFileAlt } from "react-icons/fa";
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight'
 import { all, createLowlight } from 'lowlight';
+import { Mathematics } from '@tiptap-pro/extension-mathematics'
 
 import css from 'highlight.js/lib/languages/css';
 import js from 'highlight.js/lib/languages/javascript';
@@ -47,8 +49,19 @@ export default function Editor({ filePath }: { filePath: string }) {
   // 1. Load Markdown from file
   useEffect(() => {
     const loadFile = async () => {
+      if (!filePath) return;
       try {
         console.log(filePath);
+
+        const fileInfo = await stat(filePath, {
+          baseDir: BaseDirectory.Document,
+        });
+
+        if (!fileInfo.isFile) {
+          console.error(`${filePath} is not a file`);
+          return;
+        }
+
         const content = await readTextFile(filePath, {
           baseDir: BaseDirectory.Document,
         });
@@ -66,6 +79,7 @@ export default function Editor({ filePath }: { filePath: string }) {
     {
       extensions: [
         StarterKit,
+        Mathematics,
         CodeBlockLowlight.configure({
           lowlight: lowlight,
         }),

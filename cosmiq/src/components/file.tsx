@@ -30,7 +30,7 @@ export default function FileObject({
         className={`text-button text-sm text-left w-full truncate ${
           currentFile === file ? "bg-surface" : ""
         }`}
-        onClick={() => onSelectFile(file)}
+        onClick={() => onSelectFile(`${dir}/${file}`)}
       >
         {file.replace(/\.md$/, "")}
       </button>

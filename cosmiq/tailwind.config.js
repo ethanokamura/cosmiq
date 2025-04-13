@@ -23,6 +23,7 @@ export default {
       fontFamily: {
         grotesk: "Hanken Grotesk",
         rubik: "Rubik",
+        noto: "Noto Sans",
       },
       gridTemplateRows: {
         home: ["auto 1fr auto"],

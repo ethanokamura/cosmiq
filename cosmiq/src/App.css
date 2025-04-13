@@ -1,6 +1,8 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "highlight.js/styles/atom-one-dark.css";
+@import "katex/dist/katex.min.css";
+
 
 @theme {
   --color-background: #10141a;
@@ -14,6 +16,7 @@
   --width-content-width: 90ch;
   --font-grotesk: "Hanken Grotesk", "sans-serif";
   --font-rubik: "Rubik", "sans-serif";
+  --font-noto: "Noto Sans", "sans-serif";
 }
 
 @layer base {
@@ -47,11 +50,11 @@
   }
 
   h1 {
-    @apply my-5 text-4xl md:text-6xl;
+    @apply my-5 text-3xl md:text-4xl;
   }
 
   h2 {
-    @apply my-3 text-2xl md:text-4xl;
+    @apply my-3 text-2xl md:text-3xl;
   }
 
   h3 {
@@ -64,7 +67,7 @@
 
   p,
   li {
-    @apply text-text2 text-lg md:text-xl;
+    @apply text-text2 font-medium text-base md:text-lg;
   }
 
   li {
@@ -85,7 +88,7 @@
   }
 
   button {
-    @apply bg-accent text-xl px-8 py-1 rounded my-5 text-background;
+    @apply bg-accent text-xl px-8 py-1 rounded hover:rounded-sm my-5 text-background;
   }
 
   button,
@@ -123,18 +126,17 @@
     @apply text-text2 bg-background/30 hover:bg-background/90 py-1 px-2 m-0;
   }
 
-  .PromseMirror hr {
+  .ProseMirror hr {
     @apply h-[2px] rounded-lg my-4 bg-text3 opacity-25 border-0;
-
   }
   .ProseMirror :is(b, a, strong) {
     @apply text-accent;
   }
   .ProseMirror :is(h1, h2, h3, h4, h5, h6) {
-    @apply my-3 capitalize font-bold;
+    @apply my-3 capitalize font-medium;
   }
   .ProseMirror :not(h1, h2, h3, h4, h5, h6) {
-    @apply text-base md:text-lg;
+    @apply text-text2 font-light text-base md:text-lg;
   }
   .ProseMirror :not(h1, h2, h3, h4, h5, h6, b, a, strong) {
     @apply text-text2;
@@ -164,11 +166,33 @@
     @apply mt-3 bg-surface overflow-x-scroll p-4 rounded-md max-w-full mb-5;
     tab-size: 2;
   }
+
+  .ProseMirror code span, .ProseMirror pre code {
+    @apply text-base
+  }
   .ProseMirror pre::-webkit-scrollbar {
     @apply bg-transparent;
   }
   .ProseMirror pre::-webkit-scrollbar-thumb {
     @apply bg-transparent;
+  }
+  .ProseMirror h1 {
+    @apply my-5 text-3xl md:text-4xl;
+  }
+  .ProseMirror h2 {
+    @apply my-3 text-2xl md:text-3xl;
+  }
+  .ProseMirror h3 {
+    @apply my-2 text-lg md:text-2xl;
+  }
+  .Tiptap-mathematics-editor, .Tiptap-mathematics-render  {
+    @apply font-noto rounded-md; 
+  }
+  .Tiptap-mathematics-render span {
+    @apply text-text2 text-lg md:text-xl
+  }
+  .Tiptap-mathematics-render .mord .mtight {
+    @apply text-xs md:text-sm p-[1px]
   }
 }
 

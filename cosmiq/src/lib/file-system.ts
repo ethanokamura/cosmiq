@@ -20,7 +20,7 @@ export async function getPagesFromDir(dir: string): Promise<FsResult> {
     for (const entry of entries) {
       if (entry.isDirectory) {
         directories.push(entry.name ?? "");
-      } else if (entry.name?.endsWith(".md")) {
+      } else if (entry.isFile && entry.name?.endsWith(".md")) {
         files.push(entry.name);
       }
     }

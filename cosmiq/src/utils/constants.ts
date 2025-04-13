@@ -1,2 +1,2 @@
 export const title = "cosmiq";
-export const description = "this is a description";
+export const description = "Your Brain's Mission Control.";

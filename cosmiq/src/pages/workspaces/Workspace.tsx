@@ -22,7 +22,7 @@ export default function Workspace() {
   useEffect(() => {
     if (!selectedFile || !workspace) return;
     setFullPath(
-      `${import.meta.env.VITE_APP_DIRECTORY}/${workspace}/${selectedFile}`,
+      `${import.meta.env.VITE_APP_DIRECTORY}/${selectedFile}`,
     );
     // loadDirs();
   }, [selectedFile, workspace]);

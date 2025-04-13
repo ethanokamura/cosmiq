@@ -1,23 +1,29 @@
-import { Link } from "react-router-dom";
 import Starfield from "@/components/starfield";
-import { FaPlus } from "react-icons/fa";
 import Directories from "@/components/directories";
+import * as config from "@/utils/constants";
+import { PiPlanetBold } from "react-icons/pi";
 export default function Home() {
   return (
-    <main className="flex flex-col items-center">
-      <Starfield />
-      <h1 className="text-[10em]">
-        cosm<span className="text-accent font-grotesk">iq</span>
-      </h1>
-      <div className="flex gap-4 w-full justify-center">
-        <Link to="/create">
-          <button className="flex gap-4 justify-center items-center">
-            <span>Create New Directory</span>
-            <FaPlus />
-          </button>
-        </Link>
-      </div>
+    <div className="flex">
       <Directories />
-    </main>
+      <Starfield />
+      <main className="w-full pt-40 flex flex-col items-center gap-10">
+        <div className="text-center">
+          <div className="">
+            <h1 className="text-9xl flex items-end">
+              c
+              <span>
+                <PiPlanetBold size={100} />
+              </span>
+              sm
+              <span className="text-accent">
+                iq
+              </span>
+            </h1>
+          </div>
+          <p>{config.description}</p>
+        </div>
+      </main>
+    </div>
   );
 }
