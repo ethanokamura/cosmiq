@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config({path: "../.env"});
 const express = require('express');
 const cors = require('cors');
 const { generateSummary, generateQuiz } = require('./src/features/api/gemini');

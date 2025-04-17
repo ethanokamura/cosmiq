@@ -9,9 +9,15 @@ pub struct GenerateQuizInput {
 
 #[command]
 async fn generate_summary(content: String) -> Result<String, String> {
+    let backend_url = if cfg!(debug_assertions) {
+        "http://localhost:8080/generate-summary"
+    } else {
+        "https://cosmiq-server.vercel.app/generate-summary"
+    };
+
     let client = reqwest::Client::new();
     let response = client
-        .post("http://localhost:8080/generate-summary")
+        .post(backend_url)
         .json(&serde_json::json!({ "content": content }))
         .send()
         .await
@@ -23,10 +29,16 @@ async fn generate_summary(content: String) -> Result<String, String> {
 
 #[command]
 async fn generate_quiz(input: GenerateQuizInput) -> Result<String, String> {
+    let backend_url = if cfg!(debug_assertions) {
+        "http://localhost:8080/generate-quiz"
+    } else {
+        "https://cosmiq-server.vercel.app/generate-quiz"
+    };
+
     let client = reqwest::Client::new();
 
     let response = client
-        .post("http://localhost:8080/generate-quiz")
+        .post(backend_url)
         .header("Content-Type", "application/json")
         .json(&serde_json::json!({ "prompt": input.prompt }))
         .send()
