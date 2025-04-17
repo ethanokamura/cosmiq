@@ -27,16 +27,21 @@
     outline: none;
   }
 
+  * {
+    @apply overscroll-none;
+  }
+
   html {
-    @apply h-screen w-screen p-0 m-0 text-text bg-background font-semibold;
+    @apply h-screen w-screen p-0 m-0 text-text bg-background font-semibold
+    ;
   }
 
   body {
-    @apply p-0 m-0 w-full h-full;
+    @apply p-0 m-0 w-full h-full bg-gradient-to-bl from-accent/10 to-background bg-fixed;
   }
 
   main {
-    @apply max-w-4xl w-full mx-auto bg-fixed bg-cover px-10 py-20;
+    @apply max-w-4xl w-full mx-auto px-10 pt-20 pb-40;
   }
 
   section {
@@ -125,7 +130,6 @@
   .text-button {
     @apply text-text2 bg-background/30 hover:bg-background/90 py-1 px-2 m-0;
   }
-
   .ProseMirror hr {
     @apply h-[2px] rounded-lg my-4 bg-text3 opacity-25 border-0;
   }
@@ -142,13 +146,13 @@
     @apply text-text2;
   }
   .ProseMirror p:not(:is(h1, h2, h3, h4, h5, h6) + p) {
-    @apply mt-3
+    @apply mt-2
   }
   .ProseMirror :is(ol) {
-    @apply list-decimal pl-5 marker:text-accent;
+    @apply list-decimal pl-7 marker:text-accent;
   }
   .ProseMirror :is(ul) {
-    @apply list-['>'] pl-5 marker:text-text3;
+    @apply list-['>'] pl-7 marker:text-text3;
   }
   .ProseMirror a {
     @apply underline;
@@ -184,6 +188,12 @@
   }
   .ProseMirror h3 {
     @apply my-2 text-lg md:text-2xl;
+  }
+  .ProseMirror b {
+    @apply font-bold;
+  }
+  .ProseMirror ol li > ol {
+    @apply list-disc pl-7
   }
   .Tiptap-mathematics-editor, .Tiptap-mathematics-render  {
     @apply font-noto rounded-md; 

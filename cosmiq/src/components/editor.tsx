@@ -14,6 +14,7 @@ import { FaRegQuestionCircle, FaRegFileAlt } from "react-icons/fa";
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight'
 import { all, createLowlight } from 'lowlight';
 import { Mathematics } from '@tiptap-pro/extension-mathematics'
+import { scrollCaretIntoCenter } from "@/lib/tiptap-plugins";
 
 import css from 'highlight.js/lib/languages/css';
 import js from 'highlight.js/lib/languages/javascript';
@@ -72,9 +73,7 @@ export default function Editor({ filePath }: { filePath: string }) {
       extensions: [
         StarterKit,
         Mathematics,
-        CodeBlockLowlight.configure({
-          lowlight: lowlight,
-        }),
+        CodeBlockLowlight.configure({ lowlight }),
         Markdown
       ],
       content: markdownContent ?? "Hello World",
@@ -85,6 +84,7 @@ export default function Editor({ filePath }: { filePath: string }) {
         }).catch((err) => {
           console.error("Failed to save file:", err);
         });
+        scrollCaretIntoCenter(editor);
       },
     },
     [markdownContent],
@@ -164,9 +164,11 @@ export default function Editor({ filePath }: { filePath: string }) {
 
   return (
 
-    <div>
-       <EditorContent editor={editor}  />
-       <div className="flex gap-4 items-center fixed right-10 bottom-4">
+    <div className="overflow-y-auto h-max-screen">
+      <div className="pb-40">
+        <EditorContent editor={editor} />
+      </div>
+      <div className="flex gap-4 items-center fixed right-10 bottom-4">
         <button
           type="button"
           disabled={!markdownContent || markdownContent == ""}

@@ -1,13 +1,6 @@
-// Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
-use reqwest::header::CONTENT_TYPE;
+use reqwest;
 use serde::Deserialize;
-use std::env;
 use tauri::command;
-
-#[derive(Deserialize)]
-struct GenerateSummaryInput {
-    content: String,
-}
 
 #[derive(Debug, Deserialize)]
 pub struct GenerateQuizInput {
@@ -15,116 +8,37 @@ pub struct GenerateQuizInput {
 }
 
 #[command]
-async fn generate_summary(input: GenerateSummaryInput) -> Result<String, String> {
-    let api_key = env::var("GEMINI_API_KEY").map_err(|e| e.to_string())?;
-    let base_url = env::var("GEMINI_MODEL_VERSION").map_err(|e| e.to_string())?;
-    let url = format!("{}?key={}", base_url, api_key);
-    println!("API KEY: {}", api_key);
-    println!("Model URL: {}", url);
-
+async fn generate_summary(content: String) -> Result<String, String> {
     let client = reqwest::Client::new();
-
-    let payload = serde_json::json!({
-        "contents": [
-            {
-                "parts": [
-                    {
-                        "text": input.content
-                    }
-                ]
-            }
-        ]
-    });
-
     let response = client
-        .post(&url)
-        .header(CONTENT_TYPE, "application/json")
-        .json(&payload)
+        .post("http://localhost:8080/generate-summary")
+        .json(&serde_json::json!({ "content": content }))
         .send()
         .await
         .map_err(|e| e.to_string())?;
 
-    let json: serde_json::Value = response.json().await.map_err(|e| e.to_string())?;
-    println!("Gemini response: {}", json);
-    let generated_text = json
-        .get("candidates")
-        .and_then(|c| c.get(0))
-        .and_then(|c| c.get("content"))
-        .and_then(|c| c.get("parts"))
-        .and_then(|p| p.get(0))
-        .and_then(|p| p.get("text"))
-        .and_then(|t| t.as_str())
-        .unwrap_or("No summary found")
-        .to_string();
-    Ok(generated_text)
+    let data: serde_json::Value = response.json().await.map_err(|e| e.to_string())?;
+    Ok(data["summary"].as_str().unwrap_or("No summary").to_string())
 }
 
 #[command]
 async fn generate_quiz(input: GenerateQuizInput) -> Result<String, String> {
-    let api_key = env::var("GEMINI_API_KEY").map_err(|e| e.to_string())?;
-    let base_url = env::var("GEMINI_MODEL_VERSION").map_err(|e| e.to_string())?;
-    let url = format!("{}?key={}", base_url, api_key);
-    println!("API KEY: {}", api_key);
-    println!("Model URL: {}", url);
-
     let client = reqwest::Client::new();
 
-    let payload = serde_json::json!({
-      "contents": [
-          {
-              "parts": [
-                  {
-                      "text": input.prompt
-                  }
-              ]
-          }
-      ]
-    });
-
     let response = client
-        .post(&url)
-        .header(CONTENT_TYPE, "application/json")
-        .json(&payload)
+        .post("http://localhost:8080/generate-quiz")
+        .header("Content-Type", "application/json")
+        .json(&serde_json::json!({ "prompt": input.prompt }))
         .send()
         .await
         .map_err(|e| e.to_string())?;
 
     let json: serde_json::Value = response.json().await.map_err(|e| e.to_string())?;
-    println!("Gemini response: {}", json);
 
-    let generated_text = json
-        .get("candidates")
-        .and_then(|c| c.get(0))
-        .and_then(|c| c.get("content"))
-        .and_then(|c| c.get("parts"))
-        .and_then(|p| p.get(0))
-        .and_then(|p| p.get("text"))
-        .and_then(|t| t.as_str())
-        .unwrap_or("No quiz generated")
-        .to_string();
-
-    // Validate that the response is proper JSON with the expected structure
-    match serde_json::from_str::<serde_json::Value>(&generated_text) {
-        Ok(quiz_json) => {
-            if quiz_json.get("questions").is_some() {
-                Ok(generated_text)
-            } else {
-                Err("Generated quiz doesn't have the expected JSON structure".to_string())
-            }
-        }
-        Err(_) => {
-            // If the response isn't valid JSON, try to extract and fix it
-            // Sometimes the API might return JSON with extra text around it
-            if let Some(json_start) = generated_text.find('{') {
-                if let Some(json_end) = generated_text.rfind('}') {
-                    let json_str = &generated_text[json_start..=json_end];
-                    if let Ok(_) = serde_json::from_str::<serde_json::Value>(json_str) {
-                        return Ok(json_str.to_string());
-                    }
-                }
-            }
-            Err("Failed to parse generated quiz as JSON".to_string())
-        }
+    if let Some(quiz_json) = json.get("quiz") {
+        Ok(quiz_json.to_string())
+    } else {
+        Err("Invalid response from server".to_string())
     }
 }
 

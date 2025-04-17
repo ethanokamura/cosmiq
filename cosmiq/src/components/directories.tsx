@@ -85,9 +85,9 @@ export default function Directories() {
       </div>
       <ul className="w-full flex flex-col gap-2 overflow-y-scroll">
         {subdirs.map((dir) => (
-          <li key={dir} className="">
+          <li key={dir} className="border-1 border-surface rounded">
             <Link to={`/workspaces/${dir}`}>
-              <button className="hover:bg-background/90 bg-background/20 rounded px-4 py-2 text-start w-full my-0">
+              <button className="hover:bg-background/90 bg-background/70 rounded px-4 py-2 text-start w-full my-0 hover:scale-100 hover:border-2 border-accent">
                 <h1 className="my-2 text-lg md:text-xl font-medium text-text">{dir}</h1>
                 <p className="text-xs md:text-sm break-words font-medium text-text3">{`${absPath}/${import.meta.env.VITE_APP_DIRECTORY}/${dir}`}</p>
               </button>
