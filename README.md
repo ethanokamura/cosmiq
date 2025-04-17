@@ -49,7 +49,7 @@ A smart, markdown-based note-taking app designed for students:
 
 ## How to Run:
 
-To spin up the frontend, run the following commands:
+To launch the the desktop application itself, execute the following commands:
 
 ```sh
 cd cosmiq
@@ -57,12 +57,10 @@ npm i
 npm run tauri dev
 ```
 
-To spin up the backend (allows for usage of gemini)
-
+In a seperate terminal you can spin up backend with the following commands:
 ```sh
 cd server
-docker-compose build
-docker-compose up
+docker-compose up --build
 ```
 
 Note that in order to run the backend, you will need a Gemini API key
