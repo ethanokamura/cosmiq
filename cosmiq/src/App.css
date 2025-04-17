@@ -41,7 +41,7 @@
   }
 
   main {
-    @apply max-w-4xl w-full mx-auto px-10 pt-20 pb-40;
+    @apply max-w-4xl w-full mx-auto px-14 pt-20 pb-40;
   }
 
   section {

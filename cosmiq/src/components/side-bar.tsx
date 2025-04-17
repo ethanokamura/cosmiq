@@ -200,8 +200,8 @@ export default function SideBar({ dir, currentFile, onSelectFile }: Props) {
           {error && <p className="text-destructive text-sm">{error}</p>}
         </div>
       )}
-      <div className="flex flex-col gap-4 w-fit">
-        <div>
+      <div className="flex flex-col gap-4 w-full">
+        <div className="flex flex-col gap-2">
           {directories && directories.length !== 0 ? (
             directories.map((directory) => (
               <SubDirectory

@@ -60,7 +60,7 @@ export default function Folder({
   }
 
   return (
-    <div className="text-left">
+    <div className="text-left w-full">
       <div className="flex items-center gap-2">
         <button
           onClick={() => setOpen(!open)}

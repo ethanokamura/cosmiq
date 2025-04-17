@@ -29,9 +29,9 @@ export default function FileObject({
   // console.log(file);
 
   return (
-    <div className="flex gap-2 items-center w-full max-w-full">
+    <div className="flex gap-2 items-center w-full">
       <button
-        className={`text-button text-sm text-left w-44 hover:scale-100 hover:border-1 border-accent ${
+        className={`text-button text-sm text-left w-full hover:scale-100 hover:border-1 border-accent ${
           currentFile == `${dir}/${file}` ? "bg-surface" : "bg-background/50"
         }`}
         onClick={() => onSelectFile(`${dir}/${file}`)}
@@ -45,7 +45,7 @@ export default function FileObject({
           type="button"
           disabled={!file}
           onClick={() => deleteFile(`${dir}/${file}`)}
-          className="bg-transparent shrink-0 p-1 my-0 flex justify-center items-center hover:scale-125"
+          className="bg-transparent shrink-0 p-0 my-0 flex justify-center items-center hover:scale-125"
         >
           <FaXmark className="text-destructive" />
         </button>

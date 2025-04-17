@@ -3,6 +3,7 @@ services:
     build:
       context: .
       dockerfile: ./node/Dockerfile
+    image: cosmiq-server
     ports:
       - 3001:3001
       - 8080:8080
