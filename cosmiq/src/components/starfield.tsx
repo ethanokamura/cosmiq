@@ -26,7 +26,7 @@ export default function Starfield() {
   }, []);
 
   return (
-    <div className="fixed inset-0 -z-10 overflow-hidden">
+    <div className="fixed inset-0 -z-10 overflow-hidden bg-gradient-to-bl from-accent/10 to-blue-950/20 bg-fixed">
       <div id="starfield" className="w-full h-full relative"></div>
     </div>
   );

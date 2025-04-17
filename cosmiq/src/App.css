@@ -32,12 +32,11 @@
   }
 
   html {
-    @apply h-screen w-screen p-0 m-0 text-text bg-background font-semibold
-    ;
+    @apply h-screen w-screen p-0 m-0 text-text bg-background font-semibold;
   }
 
   body {
-    @apply p-0 m-0 w-full h-full bg-gradient-to-bl from-accent/10 to-background bg-fixed;
+    @apply p-0 m-0 w-full h-full;
   }
 
   main {
@@ -46,6 +45,10 @@
 
   section {
     @apply flex flex-col gap-5 md:gap-8;
+  }
+
+  b {
+    @apply font-bold
   }
 
   h1,

@@ -2,6 +2,7 @@ import { Link, useParams } from "react-router-dom";
 import { readTextFile, BaseDirectory, stat } from '@tauri-apps/plugin-fs';
 import { useEffect, useState } from "react";
 import Starfield from "@/components/starfield";
+import { FaCheck } from "react-icons/fa";
 
 type Quiz = {
   quiz_title: string;
@@ -65,12 +66,12 @@ export default function Quiz() {
 
   return (
     <main>
-      <Link to={"/"} className="fixed left-10 top-5 shadow-2xl z-20">
-        <button className="ring-accent ring-2 bg-background text-text">Home</button>
+      <Link to={"/"} className="fixed left-10 z-20 top-5">
+        <button className="ring-accent ring-2 bg-background shadow-2xl text-text">Home</button>
       </Link>
       <Starfield/>
       {quiz ? (
-        <div className="flex flex-col items-center gap-10">
+        <div className="flex flex-col items-center gap-10 w-2xl mx-auto">
           <h1 className="border-b-2 border-text2 pb-2">{quiz.quiz_title != "" ? quiz.quiz_title : "Quiz"}</h1>
           {quiz.questions.map((q, qIndex) => (
             <div className="card py-4 w-full">
@@ -84,7 +85,7 @@ export default function Quiz() {
                         className={`text-base my-0 w-full text-left ${
                           selectedAnswers[qIndex] === oIndex
                             ? q.answer === oIndex
-                              ? "bg-green-300 text-background"
+                              ? "bg-accent text-background"
                               : "bg-destructive text-background"
                             : "bg-background/40 hover:bg-background text-text"
                         }`}
@@ -95,9 +96,10 @@ export default function Quiz() {
                   ))}
                 </ul>
                 {showReasons[qIndex] && (
-                  <p className="mt-4 text-sm text-green-300 p-2 rounded">
-                    ✅ {q.reason}
-                  </p>
+                  <div className="text-accent flex pt-4 w-4/5 mx-auto items-start justify-center gap-2 text-start">
+                    <FaCheck size={24}/>
+                    <p className="text-base text-accent">{q.reason}</p>
+                  </div>
                 )}
               </div>
             </div> 

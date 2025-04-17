@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Editor from "../../components/editor";
 import SideBar from "@/components/side-bar";
 import { FaAngleDoubleLeft, FaAngleDoubleRight } from "react-icons/fa";
+import Starfield from "@/components/starfield";
 
 export default function Workspace() {
   const { workspace } = useParams();
@@ -56,10 +57,13 @@ export default function Workspace() {
         {selectedFile ? ( 
           <Editor filePath={fullPath} />
         ) : (
-          <div className="card mx-auto">
-            <h1>No file selected</h1>
-            <p>Pick a file to start editing</p>
-          </div>
+          <>
+            <Starfield/>
+            <div className="card mx-auto">
+              <h1>No file selected</h1>
+              <p>Pick a file to start editing</p>
+            </div>
+          </>
         )}
       </main>
     </div>
