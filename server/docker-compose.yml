@@ -1,0 +1,10 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: ./node/Dockerfile
+    ports:
+      - 3001:3001
+      - 8080:8080
+    env_file:
+      - .env
