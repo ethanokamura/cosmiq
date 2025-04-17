@@ -7,8 +7,13 @@ pub struct GenerateQuizInput {
     pub prompt: String,
 }
 
+#[derive(Debug, Deserialize)]
+pub struct GenerateSummaryInput {
+    pub content: String,
+}
+
 #[command]
-async fn generate_summary(content: String) -> Result<String, String> {
+async fn generate_summary(input: GenerateSummaryInput) -> Result<String, String> {
     let backend_url = if cfg!(debug_assertions) {
         "http://localhost:8080/generate-summary"
     } else {
@@ -18,7 +23,7 @@ async fn generate_summary(content: String) -> Result<String, String> {
     let client = reqwest::Client::new();
     let response = client
         .post(backend_url)
-        .json(&serde_json::json!({ "content": content }))
+        .json(&serde_json::json!({ "content": input.content }))
         .send()
         .await
         .map_err(|e| e.to_string())?;
