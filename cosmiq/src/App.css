@@ -135,7 +135,7 @@
   }
 
   .ProseMirror {
-    @apply overflow-y-auto h-full pb-40 px-14 pt-20;
+    @apply overflow-y-auto h-full pb-80 px-14 pt-20;
   }
   .ProseMirror hr {
     @apply h-[2px] rounded-lg my-4 bg-text3 opacity-25 border-0;

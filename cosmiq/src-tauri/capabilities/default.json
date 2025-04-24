@@ -7,6 +7,8 @@
     "core:default",
     "opener:default",
     "fs:default",
+    "core:window:default",
+    "core:window:allow-start-dragging",
     {
       "identifier": "fs:allow-document-write-recursive",
       "allow": [{ "path": "$DOCUMENT/*" }]
@@ -15,5 +17,6 @@
       "identifier": "fs:allow-document-read-recursive",
       "allow": [{ "path": "$DOCUMENT/*" }]
     }
+
   ]
 }
