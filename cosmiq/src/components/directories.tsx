@@ -85,7 +85,7 @@ export default function Directories() {
       </div>
       <ul className="w-full flex flex-col gap-2 overflow-y-scroll">
         {subdirs.map((dir) => (
-          <li key={dir} className="border-1 border-surface rounded">
+          <li key={dir} className="border-2 border-surface p-0 rounded">
             <Link to={`/workspaces/${dir}`}>
               <button className="hover:bg-background/90 bg-background/70 rounded px-4 py-2 text-start w-full my-0 hover:scale-100 hover:border-2 border-accent">
                 <h1 className="my-2 text-lg md:text-xl font-medium text-text">{dir}</h1>
