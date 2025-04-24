@@ -47,7 +47,7 @@
     @apply flex flex-col gap-5 md:gap-8;
   }
 
-  b {
+  b, strong {
     @apply font-bold
   }
 
@@ -133,6 +133,10 @@
   .text-button {
     @apply text-text2 bg-background/30 hover:bg-background/90 py-1 px-2 m-0;
   }
+
+  .ProseMirror {
+    @apply overflow-y-auto h-full pb-40 px-14 pt-20;
+  }
   .ProseMirror hr {
     @apply h-[2px] rounded-lg my-4 bg-text3 opacity-25 border-0;
   }
@@ -155,7 +159,7 @@
     @apply list-decimal pl-7 marker:text-accent;
   }
   .ProseMirror :is(ul) {
-    @apply list-['>'] pl-7 marker:text-text3;
+    @apply list-['-'] pl-7 marker:text-accent;
   }
   .ProseMirror a {
     @apply underline;
@@ -167,7 +171,7 @@
     @apply my-0 px-2;
   }
   .ProseMirror code:not(:is(pre code)) {
-    @apply bg-surface px-2 py-[2px] rounded-md text-text2;
+    @apply bg-surface px-2 py-[2px] rounded-md text-accent;
   }
   .ProseMirror pre {
     @apply mt-3 bg-surface overflow-x-scroll p-4 rounded-md max-w-full mb-5;
@@ -192,11 +196,14 @@
   .ProseMirror h3 {
     @apply my-2 text-lg md:text-2xl;
   }
-  .ProseMirror b {
+  .ProseMirror strong {
     @apply font-bold;
   }
   .ProseMirror ol li > ol {
     @apply list-disc pl-7
+  }
+  .ProseMirror ul li > ul {
+    @apply list-['>'] pl-7
   }
   .Tiptap-mathematics-editor, .Tiptap-mathematics-render  {
     @apply font-noto rounded-md; 

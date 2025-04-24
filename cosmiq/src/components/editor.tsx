@@ -11,10 +11,9 @@ import StarterKit from "@tiptap/starter-kit";
 import { Markdown } from "tiptap-markdown";
 import { useEffect, useState } from "react";
 import { FaRegQuestionCircle, FaRegFileAlt } from "react-icons/fa";
-import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight'
+import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
 import { all, createLowlight } from 'lowlight';
-import { Mathematics } from '@tiptap-pro/extension-mathematics'
-import { scrollCaretIntoCenter } from "@/lib/tiptap-plugins";
+import { Mathematics } from '@tiptap-pro/extension-mathematics';
 
 import css from 'highlight.js/lib/languages/css';
 import js from 'highlight.js/lib/languages/javascript';
@@ -25,6 +24,7 @@ import cpp from 'highlight.js/lib/languages/cpp';
 import c from 'highlight.js/lib/languages/c';
 import { invoke } from "@tauri-apps/api/core";
 import { useNavigate } from "react-router-dom";
+import { debouncedScroll } from "@/utils/debounceScroll";
 
 export default function Editor({ filePath }: { filePath: string }) {
   const [markdownContent, setMarkdownContent] = useState<string | null>(null);
@@ -78,13 +78,17 @@ export default function Editor({ filePath }: { filePath: string }) {
       ],
       content: markdownContent ?? "Hello World",
       onUpdate({ editor }) {
+        console.log("markdown update");
         const md = editor.storage.markdown.getMarkdown();
         writeTextFile(filePath, md, {
           baseDir: BaseDirectory.Document,
         }).catch((err) => {
           console.error("Failed to save file:", err);
         });
-        scrollCaretIntoCenter(editor);
+      },
+      onSelectionUpdate({ editor }) {
+        console.log("selectionUpdate");
+        debouncedScroll(editor);
       },
     },
     [markdownContent],
@@ -164,9 +168,12 @@ export default function Editor({ filePath }: { filePath: string }) {
 
   return (
 
-    <div className="overflow-y-auto h-max-screen">
-      <div className="pb-40">
-        <EditorContent editor={editor} />
+    <div className="h-full">
+      <div className="h-full">
+        <EditorContent 
+          editor={editor}
+          style={{ height: '100%', overflowY: 'auto' }}
+        />
       </div>
       <div className="flex gap-4 items-center fixed right-10 bottom-4">
         <button

@@ -53,7 +53,7 @@ export default function Workspace() {
           }
         </button>
       </div>
-      <main className="pt-14 overflow-y-scroll h-screen">
+      <main className="h-screen p-0 overflow-hidden">
         {selectedFile ? ( 
           <Editor filePath={fullPath} />
         ) : (

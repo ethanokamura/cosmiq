@@ -1,27 +1,40 @@
-import { Editor } from "@tiptap/core";
+import { Editor } from '@tiptap/react';
 
-let scrollTimeout: any;
+export const scrollCaretIntoCenter = (editor: Editor) => {
+  if (!editor.view) {
+    return;
+  }
 
-export function scrollCaretIntoCenter(editor: Editor) {
-  clearTimeout(scrollTimeout);
-  scrollTimeout = setTimeout(() => {
-    const { from } = editor.state.selection;
-    const start = editor.view.coordsAtPos(from);
-  
-    const container = document.getElementById("editor-scroll-container");
-    if (!container) return;
-  
-    const containerRect = container.getBoundingClientRect();
-    const offsetY = start.top - containerRect.top;
-  
-    const scrollTop = container.scrollTop;
-    const containerHeight = container.clientHeight;
-  
-    const targetScroll = scrollTop + offsetY - containerHeight / 2;
-  
-    container.scrollTo({
-      top: targetScroll,
-      behavior: "smooth",
+  const { state, view } = editor;
+  const { from, to } = state.selection;
+
+  if (from === to) {
+    requestAnimationFrame(() => {
+      try {
+        const startPos = view.coordsAtPos(from);
+        const endPos = view.coordsAtPos(to);
+        const caretTopRelativeToViewport = (startPos.top + endPos.bottom) / 2;
+
+        const proseMirrorElement = view.dom;
+
+        if (proseMirrorElement) {
+          const containerHeight = proseMirrorElement.clientHeight;
+          const currentScrollTop = proseMirrorElement.scrollTop;
+          const caretTopInDocument = caretTopRelativeToViewport + currentScrollTop;
+          const scrollOffset = caretTopInDocument - containerHeight / 2;
+          const scrollHeight = proseMirrorElement.scrollHeight;
+          const maxScrollTop = scrollHeight - containerHeight;
+
+          const clampedScrollOffset = Math.max(0, Math.min(scrollOffset, maxScrollTop));
+
+          proseMirrorElement.scrollTo({
+            top: clampedScrollOffset,
+            behavior: 'smooth',
+          });
+        }
+      } catch (error) {
+        console.error("Error during scrollCaretIntoCenter:", error);
+      }
     });
-  }, 50);
-}
+  }
+};
