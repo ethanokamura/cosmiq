@@ -9,6 +9,8 @@
     "fs:default",
     "core:window:default",
     "core:window:allow-start-dragging",
+    "core:window:allow-set-size",
+    "core:window:allow-set-resizable",
     {
       "identifier": "fs:allow-document-write-recursive",
       "allow": [{ "path": "$DOCUMENT/*" }]
