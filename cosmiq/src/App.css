@@ -54,7 +54,7 @@
   h1,
   h2,
   h3 {
-    @apply font-bold transition-all ease-linear duration-300;
+    @apply font-medium transition-all ease-linear duration-300;
   }
 
   h1 {

@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { BaseDirectory, mkdir, exists, create } from "@tauri-apps/plugin-fs";
-import { PiPlanetBold } from "react-icons/pi";
 import { FaFile, FaFolder } from "react-icons/fa";
 import { Link, redirect } from "react-router-dom";
 import SubDirectory from "./sub-directory";
 import { getPagesFromDir } from "@/lib/file-system";
 import FileObject from "./file";
 import Tooltip from "./tooltip";
+import Rocket from "@/assets/cosmiq-rocket.svg";
 
 type Props = {
   dir: string;
@@ -118,8 +118,8 @@ export default function SideBar({ dir, currentFile, onSelectFile }: Props) {
     <div className="max-w-96 min-w-64 px-4 h-screen overflow-y-scroll overflow-x-hidden card rounded-none">
       <Tooltip hintText="Go Home">
         <Link to="/">
-          <button type="button" className="rounded-full p-2 mb-0">
-            <PiPlanetBold size={32} />
+          <button type="button" className="rounded-full p-2 mb-0 bg-background hover:ring-2 ring-accent">
+            <img src={Rocket} alt="cosmiq logo" width={32} height={32}/>
           </button>
         </Link>
       </Tooltip>
