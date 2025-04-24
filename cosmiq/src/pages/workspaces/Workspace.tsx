@@ -59,7 +59,7 @@ export default function Workspace() {
         ) : (
           <>
             <Starfield/>
-            <div className="card mx-auto">
+            <div className="card mx-auto mt-40">
               <h1>No file selected</h1>
               <p>Pick a file to start editing</p>
             </div>
