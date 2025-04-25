@@ -20,3 +20,13 @@ Push to Google Cloud Run
 ```sh
 docker push us-west2-docker.pkg.dev/cosmiq-456603/cosmiq-server/cosmiq-image:latest
 ```
+
+Deploying API keys
+```sh
+gcloud run deploy cosmiq \
+  --image us-west2-docker.pkg.dev/cosmiq-456603/cosmiq-server/cosmiq-image:latest \
+  --set-env-vars API_KEY_1=API_VALUE_1,API_KEY_2=API_VALUE_2 \
+  --region us-west2 \
+  --platform managed \
+  --allow-unauthenticated
+```
