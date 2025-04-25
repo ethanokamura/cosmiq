@@ -1,30 +1,22 @@
-## Cosmiq Server
-This is the official backend for the cosmiq desktop application.
-
-This is the main landing point for our API's and any future interaction with databases / external API's.
-
----
-
-## Running the Server
-
-To run the server you must have docker installed on your machine.
-
-Once docker has been installed, run the following commands while in this directory:
-
-If the image has not been built:
+## Running locally
+Run the following command to spin up the backend:
 ```sh
-# Image has not been built
-docker-compose up --build
+docker run cosmiq-server:latest
 ```
 
-If the image has already been built and you would just like to run the server, run the following command in the terminal:
+## Deploying the backend
+
+Build the docker image (on linux/amd64)
 ```sh
-# Image already exists
-docker-compose up
+docker build -t cosmiq-server:latest --platform linux/amd64 .
 ```
 
-Finally, if all you want to do is build an image (or rebuild), run this command:
+Tag the docker image
 ```sh
-# Build Image
-docker-compose build
+docker tag < INSERT DOCKER IMAGE ID > us-west2-docker.pkg.dev/cosmiq-456603/cosmiq-server/cosmiq-image
+```
+
+Push to Google Cloud Run
+```sh
+docker push us-west2-docker.pkg.dev/cosmiq-456603/cosmiq-server/cosmiq-image:latest
 ```

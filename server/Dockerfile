@@ -2,16 +2,16 @@
 FROM node:23.11.0-slim
 
 # Set the working directory to /server/node
-WORKDIR /server/node
+WORKDIR /node
 
 # Copy the package.json and package-lock.json from the context (the root folder)
-COPY ./node/package*.json ./
+COPY package*.json ./
 
 # Install the dependencies
 RUN npm install
 
 # Copy the rest of the app files from the root 'server' directory into the container
-COPY ./node /server/node
+COPY . .
 
 # Set environment variables (e.g., for the Node server)
 ENV PORT=8080
