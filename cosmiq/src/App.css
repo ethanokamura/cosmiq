@@ -4,15 +4,27 @@
 @import "katex/dist/katex.min.css";
 
 
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
 @theme {
   --color-background: #10141a;
   --color-background-2: #151b24;
   --color-surface: #1c232e;
-  --color-accent: #8875e0; /* 61AFEF */
+  --color-accent: #8875e0;
   --color-destructive: #e07575;
   --color-text: #e1e6f0;
   --color-text2: #969eb0;
   --color-text3: #666e7d;
+
+  /* --color-background: #fbfdfe;
+  --color-background-2: #f7f9fa;
+  --color-surface: #f4f6f7;
+  --color-accent: #8875e0;
+  --color-destructive: #e07575;
+  --color-text: #36393b;
+  --color-text2: #46494b;
+  --color-text3: #a9acb0; */
+
   --width-content-width: 90ch;
   --font-grotesk: "Hanken Grotesk", "sans-serif";
   --font-rubik: "Rubik", "sans-serif";
@@ -75,7 +87,7 @@
 
   p,
   li {
-    @apply text-text2 font-medium text-base md:text-lg;
+    @apply text-text3 font-medium text-base md:text-lg;
   }
 
   li {
@@ -156,10 +168,10 @@
     @apply mt-2
   }
   .ProseMirror :is(ol) {
-    @apply list-decimal pl-7 marker:text-accent;
+    @apply list-decimal pl-7 marker:text-text3;
   }
   .ProseMirror :is(ul) {
-    @apply list-['-'] pl-7 marker:text-accent;
+    @apply list-['-'] pl-7 marker:text-text3;
   }
   .ProseMirror a {
     @apply underline;

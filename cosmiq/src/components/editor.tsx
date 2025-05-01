@@ -100,8 +100,17 @@ export default function Editor({ filePath }: { filePath: string }) {
     try {
       const path = `${filePath.substring(0,filePath.length - 3)}-summary.md`
 
+      const prompt = `
+      Generate a detailed markdown formatted summary for the following content.
+      
+      Note: The response should have the title: "Summary of My Notes" where "My Notes" is the first header of the markdown content provided.
+      
+      Here is the content:
+      ${markdownContent}
+      `;
+
       const response = await invoke<string>("generate_summary", {
-        input: { content: markdownContent },
+        input: { content: prompt },
       });
   
       await writeTextFile(path, response,{

@@ -1,7 +1,6 @@
 import { Link, useParams } from "react-router-dom";
 import { readTextFile, BaseDirectory, stat } from '@tauri-apps/plugin-fs';
 import { useEffect, useState } from "react";
-import Starfield from "@/components/starfield";
 import { FaCheck } from "react-icons/fa";
 
 type Quiz = {
@@ -69,7 +68,6 @@ export default function Quiz() {
       <Link to={"/"} className="fixed left-10 z-20 top-5">
         <button className="ring-accent ring-2 bg-background shadow-2xl text-text">Home</button>
       </Link>
-      <Starfield/>
       {quiz ? (
         <div className="flex flex-col items-center gap-10 w-2xl mx-auto">
           <h1 className="border-b-2 border-text2 pb-2">{quiz.quiz_title != "" ? quiz.quiz_title : "Quiz"}</h1>
