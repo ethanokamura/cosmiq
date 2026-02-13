@@ -20,7 +20,7 @@ struct SummaryResponse {
 
 #[command]
 async fn generate_summary(input: GenerateSummaryInput) -> Result<String, String> {
-    let backend_url = "https://cosmiq-386550765711.us-west2.run.app/generate-summary";
+    let backend_url = "https://cosmiq-386550765711.us-west1.run.app/generate-summary";
     let client = reqwest::Client::new();
     let response = client
         .post(backend_url)
@@ -39,7 +39,7 @@ async fn generate_summary(input: GenerateSummaryInput) -> Result<String, String>
 
 #[command]
 async fn generate_quiz(input: GenerateQuizInput) -> Result<String, String> {
-    let backend_url = "https://cosmiq-386550765711.us-west2.run.app/generate-quiz";
+    let backend_url = "https://cosmiq-386550765711.us-west1.run.app/generate-quiz";
     let client = reqwest::Client::new();
     let response = client
         .post(backend_url)

@@ -6,11 +6,10 @@ import {
   stat,
   writeTextFile,
 } from "@tauri-apps/plugin-fs";
-import { useEditor, EditorContent } from "@tiptap/react";
+import { useEditor, EditorContent, } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import { Markdown } from "tiptap-markdown";
 import { useEffect, useState } from "react";
-import { FaRegQuestionCircle, FaRegFileAlt } from "react-icons/fa";
 import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
 import { all, createLowlight } from 'lowlight';
 import { Mathematics } from '@tiptap-pro/extension-mathematics';
@@ -25,8 +24,10 @@ import c from 'highlight.js/lib/languages/c';
 import { invoke } from "@tauri-apps/api/core";
 import { useNavigate } from "react-router-dom";
 import { debouncedScroll } from "@/utils/debounceScroll";
+import ToolBar from "./toolbar";
+import { FaRegFileAlt, FaRegQuestionCircle } from "react-icons/fa";
 
-export default function Editor({ filePath }: { filePath: string }) {
+export default function TextEditor({ filePath }: { filePath: string }) {
   const [markdownContent, setMarkdownContent] = useState<string | null>(null);
   const navigate = useNavigate();
 
@@ -38,6 +39,9 @@ export default function Editor({ filePath }: { filePath: string }) {
   lowlight.register('shell', bash);
   lowlight.register('cpp', cpp);
   lowlight.register('c', c);
+
+  const tempPath = filePath.split("/").reverse()[0];
+  const file = tempPath.substring(0, tempPath.length - 3);
 
   // 1. Load Markdown from file
   useEffect(() => {
@@ -125,8 +129,6 @@ export default function Editor({ filePath }: { filePath: string }) {
   const generateQuiz = async () => {
     
     try {
-      const tempPath = filePath.split("/").reverse()[0];
-      const file = tempPath.substring(0, tempPath.length - 3);
       const quizPath = `${import.meta.env.VITE_APP_DIRECTORY}/quizzes/${file}.json`;
       const pathExits = await exists(`${import.meta.env.VITE_APP_DIRECTORY}/quizzes`, {
         baseDir: BaseDirectory.Document,
@@ -154,7 +156,10 @@ export default function Editor({ filePath }: { filePath: string }) {
             "reason": "short explaination"
           }
         ]
-      }`;
+      }
+      Respond ONLY with valid JSON. Do NOT include any intro or explanation outside the quiz itself.  
+      `;
+      console.log(prompt);
 
       const response = await invoke<string>("generate_quiz", {
         input: { prompt: prompt },
@@ -178,7 +183,13 @@ export default function Editor({ filePath }: { filePath: string }) {
   return (
 
     <div className="h-full">
+      <div className=" px-10 pb-0">
+        <h1 className=" mb-0">{file}</h1>
+      </div>
+
       <div className="h-full">
+        <ToolBar editor={editor}/>
+        <hr className="mt-2 mb-0"/>
         <EditorContent 
           editor={editor}
           style={{ height: '100%', overflowY: 'auto' }}

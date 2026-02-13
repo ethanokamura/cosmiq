@@ -1,4 +1,4 @@
-require('dotenv').config({path: "../.env"});
+require('dotenv').config({path: ".env"});
 const express = require('express');
 const cors = require('cors');
 const { generateSummary, generateQuiz } = require('./src/features/api/gemini');
@@ -19,10 +19,12 @@ app.post('/generate-summary', async (req, res) => {
 });
 
 app.post('/generate-quiz', async (req, res) => {
+  const { prompt } = req.body;
+  if (!prompt || typeof prompt !== 'string' || prompt.trim() === '') {
+    return res.status(400).json({ error: 'Missing or invalid prompt in request body' });
+  }
   try {
-    const { prompt } = req.body;
     const quiz = await generateQuiz(prompt);
-
     if (quiz) {
       res.json({ quiz });
     } else {

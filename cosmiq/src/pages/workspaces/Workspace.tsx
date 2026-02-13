@@ -1,8 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import Editor from "../../components/editor";
+import TextEditor from "../../components/editor";
 import SideBar from "@/components/side-bar";
-import { FaAngleDoubleLeft, FaAngleDoubleRight } from "react-icons/fa";
 import Starfield from "@/components/starfield";
 
 export default function Workspace() {
@@ -10,7 +9,7 @@ export default function Workspace() {
   
   const [selectedFile, setSelectedFile] = useState<string | null>(null);
   const [fullPath, setFullPath] = useState<string>("");
-  const [open, setOpen] = useState<boolean>(true);
+
   
   const navigate = useNavigate();
 
@@ -34,28 +33,14 @@ export default function Workspace() {
 
   return (
     <div className="flex relative">
-      <div className="flex relative">
-        { open && (
-          <SideBar
-          dir={workspace}
-          currentFile={selectedFile}
-          onSelectFile={setSelectedFile}
-          />
-        )}
-        <button
-          className={`absolute -right-10 top-0 icon-button bg-transparent text-accent z-10 transition-all ease-linear duration-100`}
-          onClick={() => setOpen(!open)}
-          >
-          { open ?
-            <FaAngleDoubleLeft size={24}/>
-          :  
-            <FaAngleDoubleRight size={24}/>
-          }
-        </button>
-      </div>
+      <SideBar
+        dir={workspace}
+        currentFile={selectedFile}
+        onSelectFile={setSelectedFile}
+      />
       <main className="h-screen p-0 overflow-hidden">
         {selectedFile ? ( 
-          <Editor filePath={fullPath} />
+          <TextEditor filePath={fullPath} />
         ) : (
           <>
             <Starfield/>

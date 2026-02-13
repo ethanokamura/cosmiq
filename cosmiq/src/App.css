@@ -147,7 +147,7 @@
   }
 
   .ProseMirror {
-    @apply overflow-y-auto h-full pb-80 px-14 pt-20;
+    @apply overflow-y-auto h-full pb-80 px-14;
   }
   .ProseMirror hr {
     @apply h-[2px] rounded-lg my-4 bg-text3 opacity-25 border-0;
@@ -226,6 +226,12 @@
   .Tiptap-mathematics-render .mord .mtight {
     @apply text-xs md:text-sm p-[1px]
   }
+  .toolbar {
+    @apply flex flex-wrap gap-1 bg-background w-full px-10 py-4 justify-start
+  }
+  .toolbar button {
+    @apply px-2 m-0 flex items-center text-text2 bg-background-2 hover:bg-text hover:text-background
+  }
 }
 
 @layer utilities {
@@ -233,7 +239,7 @@
     position: absolute;
     width: 2px;
     height: 2px;
-    background: white;
+    background: var(--color-text);
     border-radius: 9999px;
     opacity: 0.8;
     animation: twinkle 2s infinite ease-in-out alternate;

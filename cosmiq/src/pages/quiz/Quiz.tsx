@@ -72,8 +72,8 @@ export default function Quiz() {
         <div className="flex flex-col items-center gap-10 w-2xl mx-auto">
           <h1 className="border-b-2 border-text2 pb-2">{quiz.quiz_title != "" ? quiz.quiz_title : "Quiz"}</h1>
           {quiz.questions.map((q, qIndex) => (
-            <div className="card py-4 w-full">
-              <div key={qIndex}>
+            <div key={qIndex} className="card py-4 w-full">
+              <div>
                 <h3 className="font-medium mb-2">{q.question}</h3>
                 <ul className="space-y-4">
                   {q.options.map((option, oIndex) => (

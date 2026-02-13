@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { BaseDirectory, mkdir, exists, create } from "@tauri-apps/plugin-fs";
-import { FaFile, FaFolder } from "react-icons/fa";
+import { FaFile, FaFolder, FaLock, FaLockOpen } from "react-icons/fa";
 import { Link, redirect } from "react-router-dom";
 import SubDirectory from "./sub-directory";
 import { getPagesFromDir } from "@/lib/file-system";
@@ -18,6 +18,8 @@ type Props = {
 export default function SideBar({ dir, currentFile, onSelectFile }: Props) {
   const [isCreatingDir, setIsCreatingDir] = useState(false);
   const [isCreatingFile, setIsCreatingFile] = useState(false);
+  const [open, setOpen] = useState<boolean>(true);
+
   const [error, setError] = useState("");
   const [path, setPath] = useState<string>("unknown");
 
@@ -115,7 +117,17 @@ export default function SideBar({ dir, currentFile, onSelectFile }: Props) {
   }
 
   return (
-    <div className="max-w-96 min-w-64 px-4 h-screen overflow-y-scroll overflow-x-hidden card rounded-none">
+    <div className={`hover:relative fixed z-10 bg-surface/90 -left-60 ${open && "relative left-0"} hover:left-0 min-w-64 max-w-96 px-4 h-screen overflow-y-scroll overflow-x-visible card rounded-none transition-all ease-linear duration-100`}>
+      <button
+        className={`fixed top-0 right-5 icon-button bg-transparent text-accent z-10`}
+        onClick={() => setOpen(!open)}
+        >
+        { open ?
+          <FaLock size={16}/>
+        :  
+          <FaLockOpen size={16}/>
+        }
+      </button>
       <Tooltip hintText="Go Home">
         <Link to="/">
           <button type="button" className="rounded-full p-2 mb-0 bg-background hover:ring-2 ring-accent">
@@ -233,8 +245,8 @@ export default function SideBar({ dir, currentFile, onSelectFile }: Props) {
           ) : (
             <></>
           )}
-      </ul>
-    </div>
+        </ul>
+      </div>
     </div>
   );
 }

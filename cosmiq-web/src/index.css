@@ -1,1 +1,99 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+
+@theme {
+  --color-background: #10141a;
+  --color-background-2: #151b24;
+  --color-surface: #1c232e;
+  --color-accent: #8875e0; /* 61AFEF */
+  --color-destructive: #e07575;
+  --color-text: #e1e6f0;
+  --color-text2: #969eb0;
+  --color-text3: #666e7d;
+  --width-content-width: 90ch;
+  --font-grotesk: "Hanken Grotesk", "sans-serif";
+  --font-rubik: "Rubik", "sans-serif";
+  --font-noto: "Noto Sans", "sans-serif";
+}
+
+@layer base {
+  *::-webkit-scrollbar {
+    display: none;
+  }
+  *:focus {
+    outline: none;
+  }
+
+  * {
+    @apply overscroll-none;
+  }
+
+  html {
+    @apply h-screen w-screen p-0 m-0 text-text bg-background font-semibold;
+  }
+
+  body {
+    @apply p-0 m-0 w-full h-full;
+  }
+
+  main {
+    @apply max-w-4xl w-full mx-auto px-14 pt-20 pb-40;
+  }
+
+  section {
+    @apply my-80 flex flex-col items-center
+  }
+
+  b, strong {
+    @apply font-bold
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-medium transition-all ease-linear duration-300;
+  }
+
+  h1 {
+    @apply my-5 text-3xl md:text-4xl;
+  }
+
+  h2 {
+    @apply my-3 text-2xl md:text-3xl;
+  }
+
+  h3 {
+    @apply my-2 text-lg md:text-2xl;
+  }
+  
+  hr {
+    @apply h-[2px] rounded-lg my-4 bg-gradient-to-r from-accent to-blue-900 opacity-40 border-0;
+  }
+}
+
+@layer components {
+  .card {
+    @apply w-fit text-center bg-gradient-to-tl from-background/50 to-background-2/50 rounded shadow-2xl px-4 py-2 backdrop-blur-sm;
+  }
+}
+
+@layer utilities {
+  .star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    border-radius: 9999px;
+    opacity: 0.8;
+    animation: twinkle 2s infinite ease-in-out alternate;
+  }
+
+  @keyframes twinkle {
+    0% {
+      opacity: 0.3;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+}
